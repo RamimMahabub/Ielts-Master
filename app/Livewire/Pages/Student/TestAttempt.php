@@ -4,7 +4,6 @@ namespace App\Livewire\Pages\Student;
 
 use Livewire\Component;
 use App\Models\MockTest;
-use App\Models\TestAttempt as TestAttemptModel;
 use App\Models\TestAttemptAnswer;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,18 +13,25 @@ class TestAttempt extends Component
     public $attempt;
     public $answers = [];
     public $timeLeft;
+    public $endsAtTimestamp;
     public $lastSavedAt;
 
     public function mount($id)
     {
-        $this->mockTest = MockTest::with('sections.items.asset.questionGroups.questions')->findOrFail($id);
+        $this->mockTest = MockTest::with('sections.items.asset.questionGroups.questions.answers')->findOrFail($id);
 
         $this->attempt = \App\Models\TestAttempt::firstOrCreate(
             ['user_id' => Auth::id(), 'mock_test_id' => $id, 'status' => 'in_progress'],
             ['raw_score' => 0]
         );
 
-        $this->timeLeft = $this->mockTest->duration_minutes * 60;
+        $this->timeLeft = $this->remainingSeconds();
+        $this->endsAtTimestamp = $this->attemptEndsAtTimestamp();
+
+        if ($this->attempt->started_at && $this->timeLeft <= 0 && $this->attempt->status === 'in_progress') {
+            $this->finalizeAttempt();
+            return redirect()->route('student.dashboard');
+        }
 
         // Pre-fill existing answers
         foreach ($this->attempt->answers as $ans) {
@@ -33,8 +39,37 @@ class TestAttempt extends Component
         }
     }
 
+    public function startAttempt()
+    {
+        if (!$this->attempt->started_at) {
+            $this->attempt->update([
+                'started_at' => now(),
+                'status' => 'in_progress',
+            ]);
+            $this->attempt->refresh();
+        }
+
+        $this->timeLeft = $this->remainingSeconds();
+        $this->endsAtTimestamp = $this->attemptEndsAtTimestamp();
+
+        return [
+            'started' => true,
+            'secondsLeft' => $this->timeLeft,
+            'endsAtTimestamp' => $this->endsAtTimestamp,
+        ];
+    }
+
     public function saveAnswer($questionId, $value)
     {
+        if (!$this->attempt->started_at || $this->attempt->status !== 'in_progress') {
+            return;
+        }
+
+        if ($this->remainingSeconds() <= 0) {
+            $this->finalizeAttempt();
+            return;
+        }
+
         $this->answers[$questionId] = $value;
 
         TestAttemptAnswer::updateOrCreate(
@@ -47,14 +82,34 @@ class TestAttempt extends Component
 
     public function submitTest()
     {
+        if ($this->attempt->status !== 'in_progress') {
+            return redirect()->route('student.dashboard');
+        }
+
+        if (!$this->attempt->started_at) {
+            $this->attempt->update(['started_at' => now()]);
+            $this->attempt->refresh();
+        }
+
+        $this->finalizeAttempt();
+
+        return redirect()->route('student.dashboard');
+    }
+
+    private function finalizeAttempt(): void
+    {
+        if ($this->attempt->status !== 'in_progress') {
+            return;
+        }
+
         $totalAutoGradable = 0;
         $correctCount = 0;
         $requiresEvaluation = false;
 
         $questions = $this->mockTest->sections
-            ->flatMap(fn ($section) => $section->items)
-            ->flatMap(fn ($item) => $item->asset->questionGroups)
-            ->flatMap(fn ($group) => $group->questions->map(fn ($question) => [
+            ->flatMap(fn($section) => $section->items)
+            ->flatMap(fn($item) => $item->asset->questionGroups)
+            ->flatMap(fn($group) => $group->questions->map(fn($question) => [
                 'question' => $question,
                 'question_type' => $group->question_type,
                 'section_type' => $group->asset->type ?? '',
@@ -97,10 +152,33 @@ class TestAttempt extends Component
         $this->attempt->update([
             'status' => $status,
             'raw_score' => $rawScore,
-            'placeholder_band' => '6.5'
+            'placeholder_band' => '6.5',
+            'completed_at' => now(),
         ]);
+        $this->attempt->refresh();
+    }
 
-        return redirect()->route('student.history');
+    private function remainingSeconds(): int
+    {
+        $durationSeconds = (int) $this->mockTest->duration_minutes * 60;
+
+        if (!$this->attempt->started_at) {
+            return $durationSeconds;
+        }
+
+        $elapsed = now()->timestamp - $this->attempt->started_at->timestamp;
+        $elapsed = max($elapsed, 0);
+
+        return max($durationSeconds - $elapsed, 0);
+    }
+
+    private function attemptEndsAtTimestamp(): ?int
+    {
+        if (!$this->attempt->started_at) {
+            return null;
+        }
+
+        return $this->attempt->started_at->timestamp + ((int) $this->mockTest->duration_minutes * 60);
     }
 
     public function render()

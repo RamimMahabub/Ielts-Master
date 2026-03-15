@@ -9,6 +9,11 @@ class TestAttempt extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'started_at' => 'datetime',
+        'completed_at' => 'datetime',
+    ];
+
     protected $fillable = [
         'user_id',
         'mock_test_id',
