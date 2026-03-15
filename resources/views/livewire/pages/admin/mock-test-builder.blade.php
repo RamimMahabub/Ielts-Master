@@ -59,7 +59,7 @@
                         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
                             <div>
                                 <h4 class="font-semibold">{{ $test->title }}</h4>
-                                <p class="text-xs text-slate-500">{{ $test->duration_minutes }} min • Sections: {{ $test->sections->count() }} • Creator: {{ $test->creator->name ?? 'N/A' }}</p>
+                                <p class="text-xs text-slate-500">{{ $test->duration_minutes }} min ï¿½ Sections: {{ $test->sections->count() }} ï¿½ Creator: {{ $test->creator->name ?? 'N/A' }}</p>
                                 <p class="text-xs mt-1">
                                     @foreach($test->sections as $section)
                                         <span class="inline-block mr-2 px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-800">{{ $section->section_type }} ({{ $section->items->count() }})</span>
