@@ -1,4 +1,11 @@
 <div>
+    @php
+        $inputClasses = 'mt-1 w-full rounded-2xl border border-slate-200 bg-white/85 px-4 py-3 text-sm text-slate-900 shadow-sm transition-all placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 dark:border-slate-700 dark:bg-slate-800/80 dark:text-slate-100';
+        $selectClasses = $inputClasses . ' appearance-none';
+        $textareaClasses = $inputClasses . ' min-h-[120px]';
+        $passwordInputClasses = 'w-full rounded-2xl border border-slate-200 bg-white/85 px-4 py-3 pr-11 text-sm text-slate-900 shadow-sm transition-all placeholder:text-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 dark:border-slate-700 dark:bg-slate-800/80 dark:text-slate-100';
+    @endphp
+
     <x-slot name="header">
         <h2 class="font-semibold text-2xl leading-tight">Student Profile</h2>
         <p class="text-sm text-slate-500 mt-1">Keep your study profile updated to receive better recommendations and track progress.</p>
@@ -77,7 +84,7 @@
 
                     <div class="flex-1">
                         <label class="block text-sm font-medium">Profile Photo</label>
-                        <input type="file" wire:model="profile_photo" class="mt-1 w-full rounded-xl border-slate-300 dark:border-slate-700 dark:bg-slate-800 text-sm" />
+                        <input type="file" wire:model="profile_photo" class="mt-1 w-full rounded-2xl border border-slate-200 bg-white/85 px-4 py-3 text-sm text-slate-700 shadow-sm file:mr-4 file:rounded-xl file:border-0 file:bg-indigo-50 file:px-4 file:py-2 file:text-sm file:font-medium file:text-indigo-700 hover:file:bg-indigo-100 dark:border-slate-700 dark:bg-slate-800/80 dark:text-slate-200 dark:file:bg-slate-700 dark:file:text-slate-100" />
                         @error('profile_photo') <span class="text-sm text-red-600">{{ $message }}</span> @enderror
                         <div wire:loading wire:target="profile_photo" class="text-xs text-slate-500 mt-1">Uploading...</div>
                     </div>
@@ -90,25 +97,25 @@
                 <div class="mt-5 grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-sm font-medium">Full Name</label>
-                        <input type="text" wire:model="name" class="mt-1 w-full rounded-xl border-slate-300 dark:border-slate-700 dark:bg-slate-800" />
+                        <input type="text" wire:model="name" class="{{ $inputClasses }}" />
                         @error('name') <span class="text-sm text-red-600">{{ $message }}</span> @enderror
                     </div>
 
                     <div>
                         <label class="block text-sm font-medium">Phone</label>
-                        <input type="text" wire:model="phone" class="mt-1 w-full rounded-xl border-slate-300 dark:border-slate-700 dark:bg-slate-800" placeholder="Optional" />
+                        <input type="text" wire:model="phone" class="{{ $inputClasses }}" placeholder="Optional" />
                         @error('phone') <span class="text-sm text-red-600">{{ $message }}</span> @enderror
                     </div>
 
                     <div>
                         <label class="block text-sm font-medium">Country</label>
-                        <input type="text" wire:model="country" class="mt-1 w-full rounded-xl border-slate-300 dark:border-slate-700 dark:bg-slate-800" placeholder="Optional" />
+                        <input type="text" wire:model="country" class="{{ $inputClasses }}" placeholder="Optional" />
                         @error('country') <span class="text-sm text-red-600">{{ $message }}</span> @enderror
                     </div>
 
                     <div>
                         <label class="block text-sm font-medium">Timezone</label>
-                        <select wire:model="timezone" class="mt-1 w-full rounded-xl border-slate-300 dark:border-slate-700 dark:bg-slate-800">
+                        <select wire:model="timezone" class="{{ $selectClasses }}">
                             @foreach($this->timezones as $zone)
                                 <option value="{{ $zone }}">{{ $zone }}</option>
                             @endforeach
@@ -119,7 +126,7 @@
 
                 <div class="mt-4">
                     <label class="block text-sm font-medium">Short Bio</label>
-                    <textarea wire:model="bio" rows="3" class="mt-1 w-full rounded-xl border-slate-300 dark:border-slate-700 dark:bg-slate-800" placeholder="Tell us about your IELTS journey"></textarea>
+                    <textarea wire:model="bio" rows="3" class="{{ $textareaClasses }}" placeholder="Tell us about your IELTS journey"></textarea>
                     @error('bio') <span class="text-sm text-red-600">{{ $message }}</span> @enderror
                 </div>
             </div>
@@ -131,19 +138,19 @@
                 <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-sm font-medium">Target Band</label>
-                        <input type="number" step="0.5" min="0" max="9" wire:model="target_band" class="mt-1 w-full rounded-xl border-slate-300 dark:border-slate-700 dark:bg-slate-800" placeholder="e.g. 7.5" />
+                        <input type="number" step="0.5" min="0" max="9" wire:model="target_band" class="{{ $inputClasses }}" placeholder="e.g. 7.5" />
                         @error('target_band') <span class="text-sm text-red-600">{{ $message }}</span> @enderror
                     </div>
 
                     <div>
                         <label class="block text-sm font-medium">Preferred Test Date</label>
-                        <input type="date" wire:model="preferred_test_date" class="mt-1 w-full rounded-xl border-slate-300 dark:border-slate-700 dark:bg-slate-800" />
+                        <input type="date" wire:model="preferred_test_date" class="{{ $inputClasses }}" />
                         @error('preferred_test_date') <span class="text-sm text-red-600">{{ $message }}</span> @enderror
                     </div>
 
                     <div>
                         <label class="block text-sm font-medium">Exam Type</label>
-                        <select wire:model="exam_type" class="mt-1 w-full rounded-xl border-slate-300 dark:border-slate-700 dark:bg-slate-800">
+                        <select wire:model="exam_type" class="{{ $selectClasses }}">
                             <option value="">Select exam type</option>
                             <option value="academic">Academic</option>
                             <option value="general">General Training</option>
@@ -153,14 +160,14 @@
 
                     <div>
                         <label class="block text-sm font-medium">Daily Study Minutes</label>
-                        <input type="number" min="0" max="600" wire:model="daily_study_minutes" class="mt-1 w-full rounded-xl border-slate-300 dark:border-slate-700 dark:bg-slate-800" placeholder="e.g. 120" />
+                        <input type="number" min="0" max="600" wire:model="daily_study_minutes" class="{{ $inputClasses }}" placeholder="e.g. 120" />
                         @error('daily_study_minutes') <span class="text-sm text-red-600">{{ $message }}</span> @enderror
                     </div>
                 </div>
 
                 <div class="mt-4">
                     <label class="block text-sm font-medium">Study Goal</label>
-                    <textarea wire:model="study_goal" rows="3" class="mt-1 w-full rounded-xl border-slate-300 dark:border-slate-700 dark:bg-slate-800" placeholder="Describe your goal (e.g. scholarship, immigration, university admission)"></textarea>
+                    <textarea wire:model="study_goal" rows="3" class="{{ $textareaClasses }}" placeholder="Describe your goal (e.g. scholarship, immigration, university admission)"></textarea>
                     @error('study_goal') <span class="text-sm text-red-600">{{ $message }}</span> @enderror
                 </div>
 
@@ -181,7 +188,7 @@
                 <div x-data="{ show: false }">
                     <label class="block text-sm font-medium">Current Password</label>
                     <div class="relative mt-1">
-                        <input :type="show ? 'text' : 'password'" wire:model="current_password" class="w-full rounded-xl border-slate-300 pr-10 dark:border-slate-700 dark:bg-slate-800" />
+                        <input :type="show ? 'text' : 'password'" wire:model="current_password" class="{{ $passwordInputClasses }}" />
                         <button type="button" @click="show = !show" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300" aria-label="Toggle current password visibility">
                             <svg x-show="!show" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="h-5 w-5">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.964-7.178z" />
@@ -200,7 +207,7 @@
                 <div x-data="{ show: false }">
                     <label class="block text-sm font-medium">New Password</label>
                     <div class="relative mt-1">
-                        <input :type="show ? 'text' : 'password'" wire:model="new_password" class="w-full rounded-xl border-slate-300 pr-10 dark:border-slate-700 dark:bg-slate-800" />
+                        <input :type="show ? 'text' : 'password'" wire:model="new_password" class="{{ $passwordInputClasses }}" />
                         <button type="button" @click="show = !show" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300" aria-label="Toggle new password visibility">
                             <svg x-show="!show" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="h-5 w-5">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.964-7.178z" />
@@ -219,7 +226,7 @@
                 <div x-data="{ show: false }">
                     <label class="block text-sm font-medium">Confirm Password</label>
                     <div class="relative mt-1">
-                        <input :type="show ? 'text' : 'password'" wire:model="new_password_confirmation" class="w-full rounded-xl border-slate-300 pr-10 dark:border-slate-700 dark:bg-slate-800" />
+                        <input :type="show ? 'text' : 'password'" wire:model="new_password_confirmation" class="{{ $passwordInputClasses }}" />
                         <button type="button" @click="show = !show" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300" aria-label="Toggle confirm password visibility">
                             <svg x-show="!show" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="h-5 w-5">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.964-7.178z" />
