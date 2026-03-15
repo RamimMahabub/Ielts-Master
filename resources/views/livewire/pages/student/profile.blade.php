@@ -235,6 +235,7 @@
                     @error('new_password_confirmation') <span class="text-sm text-red-600">{{ $message }}</span> @enderror
                 </div>
             </div>
+            
 
             <button type="submit" class="rounded-xl bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700 transition disabled:opacity-50" wire:loading.attr="disabled" wire:target="updatePassword">
                 <span wire:loading.remove wire:target="updatePassword">Update Password</span>
