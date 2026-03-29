@@ -52,4 +52,14 @@ class User extends Authenticatable
             'is_blocked' => 'boolean',
         ];
     }
+
+    public function attempts()
+    {
+        return $this->hasMany(TestAttempt::class, 'user_id');
+    }
+
+    public function createdMockTests()
+    {
+        return $this->hasMany(MockTest::class, 'created_by');
+    }
 }

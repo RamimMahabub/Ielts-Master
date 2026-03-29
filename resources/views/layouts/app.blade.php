@@ -31,17 +31,22 @@
 
                         @if($role === 'admin')
                             <a href="{{ route('admin.dashboard') }}" class="block rounded-xl px-4 py-2 {{ request()->routeIs('admin.dashboard') ? 'bg-indigo-600 text-white' : 'hover:bg-slate-100 dark:hover:bg-slate-800' }}">Dashboard</a>
+                            <a href="{{ route('admin.profile') }}" class="block rounded-xl px-4 py-2 {{ request()->routeIs('admin.profile') ? 'bg-indigo-600 text-white' : 'hover:bg-slate-100 dark:hover:bg-slate-800' }}">Owner Profile</a>
                             <a href="{{ route('admin.users') }}" class="block rounded-xl px-4 py-2 {{ request()->routeIs('admin.users') ? 'bg-indigo-600 text-white' : 'hover:bg-slate-100 dark:hover:bg-slate-800' }}">User Management</a>
+                            <a href="{{ route('admin.students') }}" class="block rounded-xl px-4 py-2 {{ request()->routeIs('admin.students') ? 'bg-indigo-600 text-white' : 'hover:bg-slate-100 dark:hover:bg-slate-800' }}">Students</a>
+                            <a href="{{ route('admin.instructors') }}" class="block rounded-xl px-4 py-2 {{ request()->routeIs('admin.instructors') ? 'bg-indigo-600 text-white' : 'hover:bg-slate-100 dark:hover:bg-slate-800' }}">Instructors</a>
                             <a href="{{ route('admin.instructor.verification') }}" class="block rounded-xl px-4 py-2 {{ request()->routeIs('admin.instructor.verification') ? 'bg-indigo-600 text-white' : 'hover:bg-slate-100 dark:hover:bg-slate-800' }}">Instructor Verification</a>
                             <a href="{{ route('admin.question_bank') }}" class="block rounded-xl px-4 py-2 {{ request()->routeIs('admin.question_bank') ? 'bg-indigo-600 text-white' : 'hover:bg-slate-100 dark:hover:bg-slate-800' }}">Question Bank</a>
                             <a href="{{ route('admin.mock_test.create') }}" class="block rounded-xl px-4 py-2 {{ request()->routeIs('admin.mock_test.create') ? 'bg-indigo-600 text-white' : 'hover:bg-slate-100 dark:hover:bg-slate-800' }}">Mock Test Builder</a>
                         @elseif($role === 'instructor')
                             @if(Auth::user()->instructor_status === 'approved')
                                 <a href="{{ route('instructor.dashboard') }}" class="block rounded-xl px-4 py-2 {{ request()->routeIs('instructor.dashboard') ? 'bg-indigo-600 text-white' : 'hover:bg-slate-100 dark:hover:bg-slate-800' }}">Dashboard</a>
+                                <a href="{{ route('instructor.profile') }}" class="block rounded-xl px-4 py-2 {{ request()->routeIs('instructor.profile') ? 'bg-indigo-600 text-white' : 'hover:bg-slate-100 dark:hover:bg-slate-800' }}">Profile</a>
                                 <a href="{{ route('instructor.question_bank') }}" class="block rounded-xl px-4 py-2 {{ request()->routeIs('instructor.question_bank') ? 'bg-indigo-600 text-white' : 'hover:bg-slate-100 dark:hover:bg-slate-800' }}">Question Bank</a>
                                 <a href="{{ route('instructor.mock_test.create') }}" class="block rounded-xl px-4 py-2 {{ request()->routeIs('instructor.mock_test.create') ? 'bg-indigo-600 text-white' : 'hover:bg-slate-100 dark:hover:bg-slate-800' }}">Mock Test Builder</a>
                             @else
                                 <a href="{{ route('instructor.verification.pending') }}" class="block rounded-xl px-4 py-2 {{ request()->routeIs('instructor.verification.pending') ? 'bg-indigo-600 text-white' : 'hover:bg-slate-100 dark:hover:bg-slate-800' }}">Verification Status</a>
+                                <a href="{{ route('instructor.profile') }}" class="block rounded-xl px-4 py-2 {{ request()->routeIs('instructor.profile') ? 'bg-indigo-600 text-white' : 'hover:bg-slate-100 dark:hover:bg-slate-800' }}">Profile</a>
                             @endif
                         @else
                             <a href="{{ route('student.dashboard') }}" class="block rounded-xl px-4 py-2 {{ request()->routeIs('student.dashboard') ? 'bg-indigo-600 text-white' : 'hover:bg-slate-100 dark:hover:bg-slate-800' }}">Dashboard</a>
@@ -61,6 +66,14 @@
                     <div class="px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
                         <div class="flex items-center gap-3">
                             <button @click="open = !open" class="lg:hidden rounded-lg bg-slate-100 dark:bg-slate-800 px-3 py-2">?</button>
+                            @php($avatar = Auth::user()->profile_photo)
+                            @if($avatar)
+                                <img src="{{ \Illuminate\Support\Facades\Storage::url($avatar) }}" alt="{{ Auth::user()->name }} avatar" class="h-9 w-9 rounded-full object-cover ring-2 ring-indigo-200 dark:ring-indigo-700" style="width:36px;height:36px;min-width:36px;min-height:36px;" />
+                            @else
+                                <div class="h-9 w-9 rounded-full bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 flex items-center justify-center text-xs font-bold ring-2 ring-indigo-200 dark:ring-indigo-700" style="width:36px;height:36px;min-width:36px;min-height:36px;">
+                                    {{ \Illuminate\Support\Str::upper(\Illuminate\Support\Str::substr(Auth::user()->name, 0, 1)) }}
+                                </div>
+                            @endif
                             <div class="font-semibold">{{ Auth::user()->name }}</div>
                             <span class="text-xs px-2 py-1 rounded-full bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 uppercase">{{ Auth::user()->getRoleNames()->first() }}</span>
                         </div>
