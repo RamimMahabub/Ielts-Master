@@ -6,6 +6,7 @@
         </div>
     </x-slot>
 
+    
     <div class="space-y-6">
         @if($notifications && $notifications->count() > 0)
             <section class="rounded-3xl border border-indigo-100 bg-indigo-50/50 p-4 dark:border-indigo-900/30 dark:bg-indigo-900/10">
