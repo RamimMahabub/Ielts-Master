@@ -51,6 +51,7 @@
                         @else
                             <a href="{{ route('student.dashboard') }}" class="block rounded-xl px-4 py-2 {{ request()->routeIs('student.dashboard') ? 'bg-indigo-600 text-white' : 'hover:bg-slate-100 dark:hover:bg-slate-800' }}">Dashboard</a>
                             <a href="{{ route('student.profile') }}" class="block rounded-xl px-4 py-2 {{ request()->routeIs('student.profile') ? 'bg-indigo-600 text-white' : 'hover:bg-slate-100 dark:hover:bg-slate-800' }}">Profile</a>
+                            <a href="{{ route('student.vocabulary') }}" class="block rounded-xl px-4 py-2 {{ request()->routeIs('student.vocabulary') ? 'bg-indigo-600 text-white' : 'hover:bg-slate-100 dark:hover:bg-slate-800' }}">Vocabulary Builder</a>
                             <a href="{{ route('student.history') }}" class="block rounded-xl px-4 py-2 {{ request()->routeIs('student.history') ? 'bg-indigo-600 text-white' : 'hover:bg-slate-100 dark:hover:bg-slate-800' }}">Test History</a>
                         @endif
                     </nav>

@@ -39,6 +39,7 @@ Route::middleware('auth')->group(function () {
     Route::middleware('role:student')->group(function () {
         Route::get('/student/dashboard', \App\Livewire\Pages\Student\Dashboard::class)->name('student.dashboard');
         Route::get('/student/profile', \App\Livewire\Pages\Student\Profile::class)->name('student.profile');
+        Route::get('/student/vocabulary', \App\Livewire\Pages\Student\Vocabulary::class)->name('student.vocabulary');
         Route::get('/test/{id}', \App\Livewire\Pages\Student\TestAttempt::class)->name('student.test.attempt');
         Route::get('/student/history', \App\Livewire\Pages\Student\TestHistory::class)->name('student.history');
     });
