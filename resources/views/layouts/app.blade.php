@@ -80,6 +80,7 @@
                         </div>
 
                         <div class="flex items-center gap-3">
+                            @livewire('components.notification-bell')
                             <button @click="dark = !dark" class="rounded-xl px-3 py-2 bg-slate-100 dark:bg-slate-800 text-sm transition hover:-translate-y-0.5">
                                 <span x-show="!dark">Dark</span>
                                 <span x-show="dark">Light</span>

@@ -101,9 +101,33 @@
                             @forelse($selectedStudent->attempts as $attempt)
                                 <tr class="border-t border-slate-100 dark:border-slate-700">
                                     <td class="py-2 px-3">{{ $attempt->mockTest->title ?? 'N/A' }}</td>
-                                    <td class="py-2 px-3">{{ ucfirst(str_replace('_', ' ', $attempt->status)) }}</td>
-                                    <td class="py-2 px-3">{{ $attempt->raw_score ?? '-' }}</td>
-                                    <td class="py-2 px-3">{{ optional($attempt->created_at)->format('d M Y') }}</td>
+                                    <td class="py-2 px-3">
+                                        @if($attempt->status === 'pending_evaluation')
+                                            <span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 text-xs font-semibold uppercase tracking-wider">Pending</span>
+                                        @else
+                                            <span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 text-xs font-semibold uppercase tracking-wider">{{ ucfirst($attempt->status) }}</span>
+                                        @endif
+                                    </td>
+                                    <td class="py-2 px-3 font-mono font-bold">{{ $attempt->raw_score ?? '-' }}</td>
+                                    <td class="py-2 px-3 flex items-center gap-2">
+                                        <div class="flex-1">{{ optional($attempt->created_at)->format('d M Y') }}</div>
+                                        @if($attempt->status === 'pending_evaluation')
+                                            @if($gradingAttemptId === $attempt->id)
+                                                <div class="flex items-center gap-2 bg-slate-50 dark:bg-slate-800 p-2 rounded-lg border border-indigo-200">
+                                                    <input type="number" wire:model="gradingScore" placeholder="Score" class="w-20 rounded-md border-slate-300 text-xs" />
+                                                    <select wire:model="gradingBand" class="w-20 rounded-md border-slate-300 text-xs">
+                                                        @foreach(['5.0','5.5','6.0','6.5','7.0','7.5','8.0','8.5','9.0'] as $band)
+                                                            <option value="{{ $band }}">{{ $band }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    <button wire:click="submitGrade" class="px-2 py-1 bg-emerald-600 text-white rounded text-xs">Save</button>
+                                                    <button wire:click="cancelGrading" class="px-2 py-1 bg-slate-500 text-white rounded text-xs">X</button>
+                                                </div>
+                                            @else
+                                                <button wire:click="startGrading({{ $attempt->id }}, {{ $attempt->raw_score ?? 0 }})" class="px-2 py-1 bg-indigo-600 text-white rounded text-xs hover:bg-indigo-700 transition">Grade</button>
+                                            @endif
+                                        @endif
+                                    </td>
                                 </tr>
                             @empty
                                 <tr><td colspan="4" class="py-4 px-3 text-slate-500">No attempts yet.</td></tr>

@@ -5,7 +5,10 @@ namespace App\Livewire\Pages\Admin;
 use Livewire\Component;
 use App\Models\MockTest;
 use App\Models\ContentAsset;
+use App\Models\User;
+use App\Notifications\NewMockTestPublished;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 
 class MockTestBuilder extends Component
 {
@@ -68,6 +71,12 @@ class MockTestBuilder extends Component
     {
         $test = MockTest::findOrFail($testId);
         $test->update(['is_published' => !$test->is_published]);
+
+        if ($test->is_published) {
+            $students = User::role('student')->get();
+            Notification::send($students, new NewMockTestPublished($test));
+        }
+
         $this->loadTests();
     }
 

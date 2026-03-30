@@ -3,6 +3,8 @@
 namespace App\Livewire\Pages\Admin;
 
 use App\Models\User;
+use App\Models\TestAttempt;
+use App\Notifications\TestAttemptGraded;
 use Livewire\Component;
 
 class Students extends Component
@@ -15,6 +17,9 @@ class Students extends Component
 
     public $showDetailsModal = false;
     public $selectedStudent;
+    public $gradingScore = null;
+    public $gradingBand = '6.5';
+    public $gradingAttemptId = null;
 
     public function mount(): void
     {
@@ -87,6 +92,46 @@ class Students extends Component
         $this->selectedStudent->effort_level = $this->effortLevel($this->selectedStudent->effort_score);
 
         $this->showDetailsModal = true;
+        $this->resetGrading();
+    }
+
+    public function startGrading(int $attemptId, int $currentScore = 0): void
+    {
+        $this->gradingAttemptId = $attemptId;
+        $this->gradingScore = $currentScore;
+        $this->gradingBand = '6.5';
+    }
+
+    public function cancelGrading(): void
+    {
+        $this->resetGrading();
+    }
+
+    public function submitGrade(): void
+    {
+        if (!$this->gradingAttemptId) return;
+
+        $attempt = TestAttempt::findOrFail($this->gradingAttemptId);
+        $attempt->update([
+            'raw_score' => $this->gradingScore,
+            'placeholder_band' => $this->gradingBand,
+            'status' => 'completed',
+        ]);
+
+        $attempt->user->notify(new TestAttemptGraded($attempt));
+
+        $this->resetGrading();
+        $this->viewStudent($this->selectedStudent->id);
+        $this->loadStudents();
+
+        session()->flash('message', 'Grade submitted and student notified.');
+    }
+
+    private function resetGrading(): void
+    {
+        $this->gradingAttemptId = null;
+        $this->gradingScore = null;
+        $this->gradingBand = '6.5';
     }
 
     private function computeEffortScore(int $totalAttempts, int $completedAttempts, $lastAttemptAt): int

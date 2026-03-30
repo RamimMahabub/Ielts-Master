@@ -13,6 +13,7 @@ class Dashboard extends Component
     public $recentAttempts;
     public $averageScore = 0;
     public $availableTests;
+    public $notifications;
 
     public function mount()
     {
@@ -30,6 +31,15 @@ class Dashboard extends Component
             ->with('sections.items.asset')
             ->latest()
             ->get();
+
+        $this->notifications = $this->user->unreadNotifications;
+    }
+
+    public function markAsRead(string $id): void
+    {
+        $notification = $this->user->notifications()->findOrFail($id);
+        $notification->markAsRead();
+        $this->notifications = $this->user->fresh()->unreadNotifications;
     }
 
     public function render()
