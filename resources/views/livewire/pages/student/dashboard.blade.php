@@ -1,4 +1,6 @@
 <div>
+    <div wire:poll.5s="refreshNotifications"></div>
+
     <x-slot name="header">
         <div class="flex flex-col gap-1">
             <h2 class="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">Student Dashboard</h2>

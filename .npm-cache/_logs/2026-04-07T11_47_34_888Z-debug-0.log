@@ -1,0 +1,504 @@
+0 verbose cli C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\npm\bin\npm-cli.js
+1 info using npm@11.11.0
+2 info using node@v24.14.1
+3 silly config load:file:C:\Program Files\nodejs\node_modules\npm\npmrc
+4 silly config load:file:E:\Ielts-Master\.npmrc
+5 silly config load:file:C:\Users\Farhan Mahmud\.npmrc
+6 silly config load:file:C:\Users\Farhan Mahmud\AppData\Roaming\npm\etc\npmrc
+7 verbose title npm install
+8 verbose argv "install"
+9 verbose logfile logs-max:10 dir:E:\Ielts-Master\.npm-cache\_logs\2026-04-07T11_47_34_888Z-
+10 verbose logfile E:\Ielts-Master\.npm-cache\_logs\2026-04-07T11_47_34_888Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:4496293888 maxSize:1124073472 maxEntrySize:562036736
+13 silly idealTree buildDeps
+14 silly reify mark retired [ 'E:\\Ielts-Master\\node_modules\\alpinejs' ]
+15 silly reify mark retired [ 'E:\\Ielts-Master\\node_modules\\autoprefixer' ]
+16 silly reify mark retired [ 'E:\\Ielts-Master\\node_modules\\axios' ]
+17 silly reify mark retired [ 'E:\\Ielts-Master\\node_modules\\baseline-browser-mapping' ]
+18 silly reify mark retired [ 'E:\\Ielts-Master\\node_modules\\caniuse-lite' ]
+19 silly reify mark retired [ 'E:\\Ielts-Master\\node_modules\\electron-to-chromium' ]
+20 silly reify mark retired [ 'E:\\Ielts-Master\\node_modules\\laravel-vite-plugin' ]
+21 silly reify mark retired [ 'E:\\Ielts-Master\\node_modules\\rollup' ]
+22 silly reify mark retired [ 'E:\\Ielts-Master\\node_modules\\vite' ]
+23 silly reify mark retired [ 'E:\\Ielts-Master\\node_modules\\vite-plugin-full-reload' ]
+24 silly reify mark retired [ 'E:\\Ielts-Master\\node_modules\\@vue\\shared' ]
+25 silly reify mark retired [ 'E:\\Ielts-Master\\node_modules\\@vue\\reactivity' ]
+26 silly reify mark retired [ 'E:\\Ielts-Master\\node_modules\\@rollup\\rollup-win32-x64-gnu' ]
+27 silly reify mark retired [ 'E:\\Ielts-Master\\node_modules\\@rollup\\rollup-win32-x64-msvc' ]
+28 silly reify mark retired [
+28 silly reify   'E:\\Ielts-Master\\node_modules\\browserslist',
+28 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\browserslist',
+28 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\browserslist.cmd',
+28 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\browserslist.ps1'
+28 silly reify ]
+29 silly reify mark retired [
+29 silly reify   'E:\\Ielts-Master\\node_modules\\cssesc',
+29 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\cssesc',
+29 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\cssesc.cmd',
+29 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\cssesc.ps1'
+29 silly reify ]
+30 silly reify mark retired [
+30 silly reify   'E:\\Ielts-Master\\node_modules\\esbuild',
+30 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\esbuild',
+30 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\esbuild.cmd',
+30 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\esbuild.ps1'
+30 silly reify ]
+31 silly reify mark retired [
+31 silly reify   'E:\\Ielts-Master\\node_modules\\jiti',
+31 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\jiti',
+31 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\jiti.cmd',
+31 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\jiti.ps1'
+31 silly reify ]
+32 silly reify mark retired [
+32 silly reify   'E:\\Ielts-Master\\node_modules\\nanoid',
+32 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\nanoid',
+32 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\nanoid.cmd',
+32 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\nanoid.ps1'
+32 silly reify ]
+33 silly reify mark retired [
+33 silly reify   'E:\\Ielts-Master\\node_modules\\resolve',
+33 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\resolve',
+33 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\resolve.cmd',
+33 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\resolve.ps1'
+33 silly reify ]
+34 silly reify mark retired [
+34 silly reify   'E:\\Ielts-Master\\node_modules\\sucrase',
+34 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\sucrase',
+34 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\sucrase.cmd',
+34 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\sucrase.ps1',
+34 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\sucrase-node',
+34 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\sucrase-node.cmd',
+34 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\sucrase-node.ps1'
+34 silly reify ]
+35 silly reify mark retired [
+35 silly reify   'E:\\Ielts-Master\\node_modules\\tailwindcss',
+35 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\tailwind',
+35 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\tailwind.cmd',
+35 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\tailwind.ps1',
+35 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\tailwindcss',
+35 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\tailwindcss.cmd',
+35 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\tailwindcss.ps1'
+35 silly reify ]
+36 silly reify mark retired [
+36 silly reify   'E:\\Ielts-Master\\node_modules\\update-browserslist-db',
+36 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\update-browserslist-db',
+36 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\update-browserslist-db.cmd',
+36 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\update-browserslist-db.ps1'
+36 silly reify ]
+37 silly reify moves {
+37 silly reify   'E:\\Ielts-Master\\node_modules\\alpinejs': 'E:\\Ielts-Master\\node_modules\\.alpinejs-bfYhEANN',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\autoprefixer': 'E:\\Ielts-Master\\node_modules\\.autoprefixer-yiTarg7L',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\axios': 'E:\\Ielts-Master\\node_modules\\.axios-oRwSCi85',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\baseline-browser-mapping': 'E:\\Ielts-Master\\node_modules\\.baseline-browser-mapping-QgDTsEPk',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\caniuse-lite': 'E:\\Ielts-Master\\node_modules\\.caniuse-lite-hzWKPuQL',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\electron-to-chromium': 'E:\\Ielts-Master\\node_modules\\.electron-to-chromium-Fy9C2kuh',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\laravel-vite-plugin': 'E:\\Ielts-Master\\node_modules\\.laravel-vite-plugin-wtMfmbRa',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\rollup': 'E:\\Ielts-Master\\node_modules\\.rollup-wncro9bc',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\vite': 'E:\\Ielts-Master\\node_modules\\.vite-GxzDvqfm',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\vite-plugin-full-reload': 'E:\\Ielts-Master\\node_modules\\.vite-plugin-full-reload-sHl6PjBE',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\@vue\\shared': 'E:\\Ielts-Master\\node_modules\\@vue\\.shared-NkLDgKZ9',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\@vue\\reactivity': 'E:\\Ielts-Master\\node_modules\\@vue\\.reactivity-DOeb8NTz',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\@rollup\\rollup-win32-x64-gnu': 'E:\\Ielts-Master\\node_modules\\@rollup\\.rollup-win32-x64-gnu-pw73BVaF',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\@rollup\\rollup-win32-x64-msvc': 'E:\\Ielts-Master\\node_modules\\@rollup\\.rollup-win32-x64-msvc-vJdpmFfN',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\browserslist': 'E:\\Ielts-Master\\node_modules\\.browserslist-TsdhaEfu',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\browserslist': 'E:\\Ielts-Master\\node_modules\\.bin\\.browserslist-9l0ymPob',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\browserslist.cmd': 'E:\\Ielts-Master\\node_modules\\.bin\\.browserslist.cmd-a4rcb3Ey',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\browserslist.ps1': 'E:\\Ielts-Master\\node_modules\\.bin\\.browserslist.ps1-PJhIM8V6',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\cssesc': 'E:\\Ielts-Master\\node_modules\\.cssesc-lqMxGH15',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\cssesc': 'E:\\Ielts-Master\\node_modules\\.bin\\.cssesc-RbxBmzsn',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\cssesc.cmd': 'E:\\Ielts-Master\\node_modules\\.bin\\.cssesc.cmd-XUxi2P4H',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\cssesc.ps1': 'E:\\Ielts-Master\\node_modules\\.bin\\.cssesc.ps1-vJUF3DRG',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\esbuild': 'E:\\Ielts-Master\\node_modules\\.esbuild-aeuBMksO',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\esbuild': 'E:\\Ielts-Master\\node_modules\\.bin\\.esbuild-OiAvKByT',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\esbuild.cmd': 'E:\\Ielts-Master\\node_modules\\.bin\\.esbuild.cmd-C0sxuMjl',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\esbuild.ps1': 'E:\\Ielts-Master\\node_modules\\.bin\\.esbuild.ps1-VzwdjUgf',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\jiti': 'E:\\Ielts-Master\\node_modules\\.jiti-OQitPAoc',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\jiti': 'E:\\Ielts-Master\\node_modules\\.bin\\.jiti-5hJSxxQY',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\jiti.cmd': 'E:\\Ielts-Master\\node_modules\\.bin\\.jiti.cmd-maNFqb5O',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\jiti.ps1': 'E:\\Ielts-Master\\node_modules\\.bin\\.jiti.ps1-BS5FsAsz',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\nanoid': 'E:\\Ielts-Master\\node_modules\\.nanoid-kWmTj4En',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\nanoid': 'E:\\Ielts-Master\\node_modules\\.bin\\.nanoid-G644fWBH',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\nanoid.cmd': 'E:\\Ielts-Master\\node_modules\\.bin\\.nanoid.cmd-3JA6Vpc5',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\nanoid.ps1': 'E:\\Ielts-Master\\node_modules\\.bin\\.nanoid.ps1-SDkFKdXS',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\resolve': 'E:\\Ielts-Master\\node_modules\\.resolve-6zlrJj1e',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\resolve': 'E:\\Ielts-Master\\node_modules\\.bin\\.resolve-0OBVpWWc',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\resolve.cmd': 'E:\\Ielts-Master\\node_modules\\.bin\\.resolve.cmd-U53Rr5Jb',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\resolve.ps1': 'E:\\Ielts-Master\\node_modules\\.bin\\.resolve.ps1-CutiikIs',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\sucrase': 'E:\\Ielts-Master\\node_modules\\.sucrase-D99M7bgp',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\sucrase': 'E:\\Ielts-Master\\node_modules\\.bin\\.sucrase-6b6TsqBp',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\sucrase.cmd': 'E:\\Ielts-Master\\node_modules\\.bin\\.sucrase.cmd-6oITOhXM',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\sucrase.ps1': 'E:\\Ielts-Master\\node_modules\\.bin\\.sucrase.ps1-PmuEgtua',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\sucrase-node': 'E:\\Ielts-Master\\node_modules\\.bin\\.sucrase-node-6xUqGm7s',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\sucrase-node.cmd': 'E:\\Ielts-Master\\node_modules\\.bin\\.sucrase-node.cmd-r2zIXhka',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\sucrase-node.ps1': 'E:\\Ielts-Master\\node_modules\\.bin\\.sucrase-node.ps1-i6eZjxVB',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\tailwindcss': 'E:\\Ielts-Master\\node_modules\\.tailwindcss-i96TDPyt',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\tailwind': 'E:\\Ielts-Master\\node_modules\\.bin\\.tailwind-27O2nect',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\tailwind.cmd': 'E:\\Ielts-Master\\node_modules\\.bin\\.tailwind.cmd-jhVJth4N',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\tailwind.ps1': 'E:\\Ielts-Master\\node_modules\\.bin\\.tailwind.ps1-H2BjmbAA',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\tailwindcss': 'E:\\Ielts-Master\\node_modules\\.bin\\.tailwindcss-mRdtTxsv',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\tailwindcss.cmd': 'E:\\Ielts-Master\\node_modules\\.bin\\.tailwindcss.cmd-JSklh5wW',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\tailwindcss.ps1': 'E:\\Ielts-Master\\node_modules\\.bin\\.tailwindcss.ps1-E0B4qpsA',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\update-browserslist-db': 'E:\\Ielts-Master\\node_modules\\.update-browserslist-db-aUkGRuHF',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\update-browserslist-db': 'E:\\Ielts-Master\\node_modules\\.bin\\.update-browserslist-db-rXrOMhPJ',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\update-browserslist-db.cmd': 'E:\\Ielts-Master\\node_modules\\.bin\\.update-browserslist-db.cmd-ClCiVBqy',
+37 silly reify   'E:\\Ielts-Master\\node_modules\\.bin\\update-browserslist-db.ps1': 'E:\\Ielts-Master\\node_modules\\.bin\\.update-browserslist-db.ps1-NwdrOVd6'
+37 silly reify }
+38 silly audit bulk request {
+38 silly audit   '@alloc/quick-lru': [ '5.2.0' ],
+38 silly audit   '@esbuild/aix-ppc64': [ '0.21.5' ],
+38 silly audit   '@esbuild/android-arm': [ '0.21.5' ],
+38 silly audit   '@esbuild/android-arm64': [ '0.21.5' ],
+38 silly audit   '@esbuild/android-x64': [ '0.21.5' ],
+38 silly audit   '@esbuild/darwin-arm64': [ '0.21.5' ],
+38 silly audit   '@esbuild/darwin-x64': [ '0.21.5' ],
+38 silly audit   '@esbuild/freebsd-arm64': [ '0.21.5' ],
+38 silly audit   '@esbuild/freebsd-x64': [ '0.21.5' ],
+38 silly audit   '@esbuild/linux-arm': [ '0.21.5' ],
+38 silly audit   '@esbuild/linux-arm64': [ '0.21.5' ],
+38 silly audit   '@esbuild/linux-ia32': [ '0.21.5' ],
+38 silly audit   '@esbuild/linux-loong64': [ '0.21.5' ],
+38 silly audit   '@esbuild/linux-mips64el': [ '0.21.5' ],
+38 silly audit   '@esbuild/linux-ppc64': [ '0.21.5' ],
+38 silly audit   '@esbuild/linux-riscv64': [ '0.21.5' ],
+38 silly audit   '@esbuild/linux-s390x': [ '0.21.5' ],
+38 silly audit   '@esbuild/linux-x64': [ '0.21.5' ],
+38 silly audit   '@esbuild/netbsd-x64': [ '0.21.5' ],
+38 silly audit   '@esbuild/openbsd-x64': [ '0.21.5' ],
+38 silly audit   '@esbuild/sunos-x64': [ '0.21.5' ],
+38 silly audit   '@esbuild/win32-arm64': [ '0.21.5' ],
+38 silly audit   '@esbuild/win32-ia32': [ '0.21.5' ],
+38 silly audit   '@esbuild/win32-x64': [ '0.21.5' ],
+38 silly audit   '@jridgewell/gen-mapping': [ '0.3.13' ],
+38 silly audit   '@jridgewell/resolve-uri': [ '3.1.2' ],
+38 silly audit   '@jridgewell/sourcemap-codec': [ '1.5.5' ],
+38 silly audit   '@jridgewell/trace-mapping': [ '0.3.31' ],
+38 silly audit   '@nodelib/fs.scandir': [ '2.1.5' ],
+38 silly audit   '@nodelib/fs.stat': [ '2.0.5' ],
+38 silly audit   '@nodelib/fs.walk': [ '1.2.8' ],
+38 silly audit   '@rollup/rollup-android-arm-eabi': [ '4.59.0' ],
+38 silly audit   '@rollup/rollup-android-arm64': [ '4.59.0' ],
+38 silly audit   '@rollup/rollup-darwin-arm64': [ '4.59.0' ],
+38 silly audit   '@rollup/rollup-darwin-x64': [ '4.59.0' ],
+38 silly audit   '@rollup/rollup-freebsd-arm64': [ '4.59.0' ],
+38 silly audit   '@rollup/rollup-freebsd-x64': [ '4.59.0' ],
+38 silly audit   '@rollup/rollup-linux-arm-gnueabihf': [ '4.59.0' ],
+38 silly audit   '@rollup/rollup-linux-arm-musleabihf': [ '4.59.0' ],
+38 silly audit   '@rollup/rollup-linux-arm64-gnu': [ '4.59.0' ],
+38 silly audit   '@rollup/rollup-linux-arm64-musl': [ '4.59.0' ],
+38 silly audit   '@rollup/rollup-linux-loong64-gnu': [ '4.59.0' ],
+38 silly audit   '@rollup/rollup-linux-loong64-musl': [ '4.59.0' ],
+38 silly audit   '@rollup/rollup-linux-ppc64-gnu': [ '4.59.0' ],
+38 silly audit   '@rollup/rollup-linux-ppc64-musl': [ '4.59.0' ],
+38 silly audit   '@rollup/rollup-linux-riscv64-gnu': [ '4.59.0' ],
+38 silly audit   '@rollup/rollup-linux-riscv64-musl': [ '4.59.0' ],
+38 silly audit   '@rollup/rollup-linux-s390x-gnu': [ '4.59.0' ],
+38 silly audit   '@rollup/rollup-linux-x64-gnu': [ '4.59.0' ],
+38 silly audit   '@rollup/rollup-linux-x64-musl': [ '4.59.0' ],
+38 silly audit   '@rollup/rollup-openbsd-x64': [ '4.59.0' ],
+38 silly audit   '@rollup/rollup-openharmony-arm64': [ '4.59.0' ],
+38 silly audit   '@rollup/rollup-win32-arm64-msvc': [ '4.59.0' ],
+38 silly audit   '@rollup/rollup-win32-ia32-msvc': [ '4.59.0' ],
+38 silly audit   '@rollup/rollup-win32-x64-gnu': [ '4.59.0' ],
+38 silly audit   '@rollup/rollup-win32-x64-msvc': [ '4.59.0' ],
+38 silly audit   '@types/estree': [ '1.0.8' ],
+38 silly audit   '@vue/reactivity': [ '3.1.5' ],
+38 silly audit   '@vue/shared': [ '3.1.5' ],
+38 silly audit   alpinejs: [ '3.15.8' ],
+38 silly audit   'any-promise': [ '1.3.0' ],
+38 silly audit   anymatch: [ '3.1.3' ],
+38 silly audit   arg: [ '5.0.2' ],
+38 silly audit   asynckit: [ '0.4.0' ],
+38 silly audit   autoprefixer: [ '10.4.27' ],
+38 silly audit   axios: [ '1.13.6' ],
+38 silly audit   'baseline-browser-mapping': [ '2.10.0' ],
+38 silly audit   'binary-extensions': [ '2.3.0' ],
+38 silly audit   braces: [ '3.0.3' ],
+38 silly audit   browserslist: [ '4.28.1' ],
+38 silly audit   'call-bind-apply-helpers': [ '1.0.2' ],
+38 silly audit   'camelcase-css': [ '2.0.1' ],
+38 silly audit   'caniuse-lite': [ '1.0.30001776' ],
+38 silly audit   chokidar: [ '3.6.0' ],
+38 silly audit   'glob-parent': [ '5.1.2', '6.0.2' ],
+38 silly audit   'combined-stream': [ '1.0.8' ],
+38 silly audit   commander: [ '4.1.1' ],
+38 silly audit   cssesc: [ '3.0.0' ],
+38 silly audit   'delayed-stream': [ '1.0.0' ],
+38 silly audit   didyoumean: [ '1.2.2' ],
+38 silly audit   dlv: [ '1.1.3' ],
+38 silly audit   'dunder-proto': [ '1.0.1' ],
+38 silly audit   'electron-to-chromium': [ '1.5.307' ],
+38 silly audit   'es-define-property': [ '1.0.1' ],
+38 silly audit   'es-errors': [ '1.3.0' ],
+38 silly audit   'es-object-atoms': [ '1.1.1' ],
+38 silly audit   'es-set-tostringtag': [ '2.1.0' ],
+38 silly audit   esbuild: [ '0.21.5' ],
+38 silly audit   escalade: [ '3.2.0' ],
+38 silly audit   'fast-glob': [ '3.3.3' ],
+38 silly audit   fastq: [ '1.20.1' ],
+38 silly audit   'fill-range': [ '7.1.1' ],
+38 silly audit   'follow-redirects': [ '1.15.11' ],
+38 silly audit   'form-data': [ '4.0.5' ],
+38 silly audit   'fraction.js': [ '5.3.4' ],
+38 silly audit   fsevents: [ '2.3.3' ],
+38 silly audit   'function-bind': [ '1.1.2' ],
+38 silly audit   'get-intrinsic': [ '1.3.0' ],
+38 silly audit   'get-proto': [ '1.0.1' ],
+38 silly audit   gopd: [ '1.2.0' ],
+38 silly audit   'has-symbols': [ '1.1.0' ],
+38 silly audit   'has-tostringtag': [ '1.0.2' ],
+38 silly audit   hasown: [ '2.0.2' ],
+38 silly audit   'is-binary-path': [ '2.1.0' ],
+38 silly audit   'is-core-module': [ '2.16.1' ],
+38 silly audit   'is-extglob': [ '2.1.1' ],
+38 silly audit   'is-glob': [ '4.0.3' ],
+38 silly audit   'is-number': [ '7.0.0' ],
+38 silly audit   jiti: [ '1.21.7' ],
+38 silly audit   'laravel-vite-plugin': [ '1.3.0' ],
+38 silly audit   lilconfig: [ '3.1.3' ],
+38 silly audit   'lines-and-columns': [ '1.2.4' ],
+38 silly audit   'math-intrinsics': [ '1.1.0' ],
+38 silly audit   merge2: [ '1.4.1' ],
+38 silly audit   micromatch: [ '4.0.8' ],
+38 silly audit   'mime-db': [ '1.52.0' ],
+38 silly audit   'mime-types': [ '2.1.35' ],
+38 silly audit   mz: [ '2.7.0' ],
+38 silly audit   nanoid: [ '3.3.11' ],
+38 silly audit   'node-releases': [ '2.0.36' ],
+38 silly audit   'normalize-path': [ '3.0.0' ],
+38 silly audit   'object-assign': [ '4.1.1' ],
+38 silly audit   'object-hash': [ '3.0.0' ],
+38 silly audit   'path-parse': [ '1.0.7' ],
+38 silly audit   picocolors: [ '1.1.1' ],
+38 silly audit   picomatch: [ '2.3.1', '4.0.3' ],
+38 silly audit   pify: [ '2.3.0' ],
+38 silly audit   pirates: [ '4.0.7' ],
+38 silly audit   postcss: [ '8.5.8' ],
+38 silly audit   'postcss-import': [ '15.1.0' ],
+38 silly audit   'postcss-js': [ '4.1.0' ],
+38 silly audit   'postcss-load-config': [ '6.0.1' ],
+38 silly audit   'postcss-nested': [ '6.2.0' ],
+38 silly audit   'postcss-selector-parser': [ '6.1.2' ],
+38 silly audit   'postcss-value-parser': [ '4.2.0' ],
+38 silly audit   'proxy-from-env': [ '1.1.0' ],
+38 silly audit   'queue-microtask': [ '1.2.3' ],
+38 silly audit   'read-cache': [ '1.0.0' ],
+38 silly audit   readdirp: [ '3.6.0' ],
+38 silly audit   resolve: [ '1.22.11' ],
+38 silly audit   reusify: [ '1.1.0' ],
+38 silly audit   rollup: [ '4.59.0' ],
+38 silly audit   'run-parallel': [ '1.2.0' ],
+38 silly audit   'source-map-js': [ '1.2.1' ],
+38 silly audit   sucrase: [ '3.35.1' ],
+38 silly audit   'supports-preserve-symlinks-flag': [ '1.0.0' ],
+38 silly audit   tailwindcss: [ '3.4.19' ],
+38 silly audit   thenify: [ '3.3.1' ],
+38 silly audit   'thenify-all': [ '1.6.0' ],
+38 silly audit   tinyglobby: [ '0.2.15' ],
+38 silly audit   fdir: [ '6.5.0' ],
+38 silly audit   'to-regex-range': [ '5.0.1' ],
+38 silly audit   'ts-interface-checker': [ '0.1.13' ],
+38 silly audit   'update-browserslist-db': [ '1.2.3' ],
+38 silly audit   'util-deprecate': [ '1.0.2' ],
+38 silly audit   vite: [ '5.4.21' ],
+38 silly audit   'vite-plugin-full-reload': [ '1.2.0' ]
+38 silly audit }
+39 http cache tailwindcss@https://registry.npmjs.org/tailwindcss/-/tailwindcss-3.4.19.tgz 1ms (cache hit)
+40 http cache sucrase@https://registry.npmjs.org/sucrase/-/sucrase-3.35.1.tgz 0ms (cache hit)
+41 http cache update-browserslist-db@https://registry.npmjs.org/update-browserslist-db/-/update-browserslist-db-1.2.3.tgz 0ms (cache hit)
+42 http cache nanoid@https://registry.npmjs.org/nanoid/-/nanoid-3.3.11.tgz 0ms (cache hit)
+43 http cache resolve@https://registry.npmjs.org/resolve/-/resolve-1.22.11.tgz 0ms (cache hit)
+44 http cache cssesc@https://registry.npmjs.org/cssesc/-/cssesc-3.0.0.tgz 0ms (cache hit)
+45 http cache esbuild@https://registry.npmjs.org/esbuild/-/esbuild-0.21.5.tgz 0ms (cache hit)
+46 http cache @vue/reactivity@https://registry.npmjs.org/@vue/reactivity/-/reactivity-3.1.5.tgz 0ms (cache hit)
+47 http cache browserslist@https://registry.npmjs.org/browserslist/-/browserslist-4.28.1.tgz 0ms (cache hit)
+48 http cache jiti@https://registry.npmjs.org/jiti/-/jiti-1.21.7.tgz 0ms (cache hit)
+49 http cache @vue/shared@https://registry.npmjs.org/@vue/shared/-/shared-3.1.5.tgz 0ms (cache hit)
+50 http cache vite-plugin-full-reload@https://registry.npmjs.org/vite-plugin-full-reload/-/vite-plugin-full-reload-1.2.0.tgz 0ms (cache hit)
+51 http cache vite@https://registry.npmjs.org/vite/-/vite-5.4.21.tgz 0ms (cache hit)
+52 http cache rollup@https://registry.npmjs.org/rollup/-/rollup-4.59.0.tgz 0ms (cache hit)
+53 http cache @rollup/rollup-win32-x64-gnu@https://registry.npmjs.org/@rollup/rollup-win32-x64-gnu/-/rollup-win32-x64-gnu-4.59.0.tgz 0ms (cache hit)
+54 http cache @rollup/rollup-win32-x64-msvc@https://registry.npmjs.org/@rollup/rollup-win32-x64-msvc/-/rollup-win32-x64-msvc-4.59.0.tgz 0ms (cache hit)
+55 http cache electron-to-chromium@https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.307.tgz 0ms (cache hit)
+56 http cache laravel-vite-plugin@https://registry.npmjs.org/laravel-vite-plugin/-/laravel-vite-plugin-1.3.0.tgz 0ms (cache hit)
+57 http cache caniuse-lite@https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001776.tgz 0ms (cache hit)
+58 http cache baseline-browser-mapping@https://registry.npmjs.org/baseline-browser-mapping/-/baseline-browser-mapping-2.10.0.tgz 0ms (cache hit)
+59 http cache autoprefixer@https://registry.npmjs.org/autoprefixer/-/autoprefixer-10.4.27.tgz 0ms (cache hit)
+60 http fetch GET 200 https://registry.npmjs.org/npm 138ms
+61 silly tarball no local data for tailwindcss@https://registry.npmjs.org/tailwindcss/-/tailwindcss-3.4.19.tgz. Extracting by manifest.
+62 silly tarball no local data for sucrase@https://registry.npmjs.org/sucrase/-/sucrase-3.35.1.tgz. Extracting by manifest.
+63 silly tarball no local data for update-browserslist-db@https://registry.npmjs.org/update-browserslist-db/-/update-browserslist-db-1.2.3.tgz. Extracting by manifest.
+64 silly tarball no local data for nanoid@https://registry.npmjs.org/nanoid/-/nanoid-3.3.11.tgz. Extracting by manifest.
+65 silly tarball no local data for resolve@https://registry.npmjs.org/resolve/-/resolve-1.22.11.tgz. Extracting by manifest.
+66 silly tarball no local data for cssesc@https://registry.npmjs.org/cssesc/-/cssesc-3.0.0.tgz. Extracting by manifest.
+67 silly tarball no local data for esbuild@https://registry.npmjs.org/esbuild/-/esbuild-0.21.5.tgz. Extracting by manifest.
+68 silly tarball no local data for @vue/reactivity@https://registry.npmjs.org/@vue/reactivity/-/reactivity-3.1.5.tgz. Extracting by manifest.
+69 silly tarball no local data for browserslist@https://registry.npmjs.org/browserslist/-/browserslist-4.28.1.tgz. Extracting by manifest.
+70 silly tarball no local data for jiti@https://registry.npmjs.org/jiti/-/jiti-1.21.7.tgz. Extracting by manifest.
+71 silly tarball no local data for @vue/shared@https://registry.npmjs.org/@vue/shared/-/shared-3.1.5.tgz. Extracting by manifest.
+72 http cache axios@https://registry.npmjs.org/axios/-/axios-1.13.6.tgz 0ms (cache hit)
+73 silly tarball no local data for vite-plugin-full-reload@https://registry.npmjs.org/vite-plugin-full-reload/-/vite-plugin-full-reload-1.2.0.tgz. Extracting by manifest.
+74 silly tarball no local data for vite@https://registry.npmjs.org/vite/-/vite-5.4.21.tgz. Extracting by manifest.
+75 http cache alpinejs@https://registry.npmjs.org/alpinejs/-/alpinejs-3.15.8.tgz 0ms (cache hit)
+76 silly tarball no local data for rollup@https://registry.npmjs.org/rollup/-/rollup-4.59.0.tgz. Extracting by manifest.
+77 silly tarball no local data for @rollup/rollup-win32-x64-gnu@https://registry.npmjs.org/@rollup/rollup-win32-x64-gnu/-/rollup-win32-x64-gnu-4.59.0.tgz. Extracting by manifest.
+78 silly tarball no local data for @rollup/rollup-win32-x64-msvc@https://registry.npmjs.org/@rollup/rollup-win32-x64-msvc/-/rollup-win32-x64-msvc-4.59.0.tgz. Extracting by manifest.
+79 silly tarball no local data for electron-to-chromium@https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.307.tgz. Extracting by manifest.
+80 silly tarball no local data for laravel-vite-plugin@https://registry.npmjs.org/laravel-vite-plugin/-/laravel-vite-plugin-1.3.0.tgz. Extracting by manifest.
+81 silly tarball no local data for caniuse-lite@https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001776.tgz. Extracting by manifest.
+82 silly tarball no local data for baseline-browser-mapping@https://registry.npmjs.org/baseline-browser-mapping/-/baseline-browser-mapping-2.10.0.tgz. Extracting by manifest.
+83 silly tarball no local data for autoprefixer@https://registry.npmjs.org/autoprefixer/-/autoprefixer-10.4.27.tgz. Extracting by manifest.
+84 silly tarball no local data for axios@https://registry.npmjs.org/axios/-/axios-1.13.6.tgz. Extracting by manifest.
+85 silly tarball no local data for alpinejs@https://registry.npmjs.org/alpinejs/-/alpinejs-3.15.8.tgz. Extracting by manifest.
+86 http fetch GET 200 https://registry.npmjs.org/update-browserslist-db/-/update-browserslist-db-1.2.3.tgz 148ms (cache miss)
+87 http fetch GET 200 https://registry.npmjs.org/cssesc/-/cssesc-3.0.0.tgz 149ms (cache miss)
+88 http fetch GET 200 https://registry.npmjs.org/vite-plugin-full-reload/-/vite-plugin-full-reload-1.2.0.tgz 160ms (cache miss)
+89 http fetch GET 200 https://registry.npmjs.org/browserslist/-/browserslist-4.28.1.tgz 175ms (cache miss)
+90 http fetch GET 200 https://registry.npmjs.org/laravel-vite-plugin/-/laravel-vite-plugin-1.3.0.tgz 174ms (cache miss)
+91 http fetch GET 200 https://registry.npmjs.org/esbuild/-/esbuild-0.21.5.tgz 181ms (cache miss)
+92 http fetch GET 200 https://registry.npmjs.org/baseline-browser-mapping/-/baseline-browser-mapping-2.10.0.tgz 187ms (cache miss)
+93 http fetch GET 200 https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.307.tgz 192ms (cache miss)
+94 http fetch GET 200 https://registry.npmjs.org/nanoid/-/nanoid-3.3.11.tgz 202ms (cache miss)
+95 http fetch GET 200 https://registry.npmjs.org/jiti/-/jiti-1.21.7.tgz 261ms (cache miss)
+96 http fetch POST 200 https://registry.npmjs.org/-/npm/v1/security/advisories/bulk 327ms
+97 silly audit report {
+97 silly audit report   esbuild: [
+97 silly audit report     {
+97 silly audit report       id: 1102341,
+97 silly audit report       url: 'https://github.com/advisories/GHSA-67mh-4wv8-2f99',
+97 silly audit report       title: 'esbuild enables any website to send any requests to the development server and read the response',
+97 silly audit report       severity: 'moderate',
+97 silly audit report       vulnerable_versions: '<=0.24.2',
+97 silly audit report       cwe: [Array],
+97 silly audit report       cvss: [Object]
+97 silly audit report     }
+97 silly audit report   ],
+97 silly audit report   picomatch: [
+97 silly audit report     {
+97 silly audit report       id: 1115549,
+97 silly audit report       url: 'https://github.com/advisories/GHSA-3v7f-55p6-f55p',
+97 silly audit report       title: 'Picomatch: Method Injection in POSIX Character Classes causes incorrect Glob Matching',
+97 silly audit report       severity: 'moderate',
+97 silly audit report       vulnerable_versions: '<2.3.2',
+97 silly audit report       cwe: [Array],
+97 silly audit report       cvss: [Object]
+97 silly audit report     },
+97 silly audit report     {
+97 silly audit report       id: 1115551,
+97 silly audit report       url: 'https://github.com/advisories/GHSA-3v7f-55p6-f55p',
+97 silly audit report       title: 'Picomatch: Method Injection in POSIX Character Classes causes incorrect Glob Matching',
+97 silly audit report       severity: 'moderate',
+97 silly audit report       vulnerable_versions: '>=4.0.0 <4.0.4',
+97 silly audit report       cwe: [Array],
+97 silly audit report       cvss: [Object]
+97 silly audit report     },
+97 silly audit report     {
+97 silly audit report       id: 1115552,
+97 silly audit report       url: 'https://github.com/advisories/GHSA-c2c7-rcm5-vvqj',
+97 silly audit report       title: 'Picomatch has a ReDoS vulnerability via extglob quantifiers',
+97 silly audit report       severity: 'high',
+97 silly audit report       vulnerable_versions: '<2.3.2',
+97 silly audit report       cwe: [Array],
+97 silly audit report       cvss: [Object]
+97 silly audit report     },
+97 silly audit report     {
+97 silly audit report       id: 1115554,
+97 silly audit report       url: 'https://github.com/advisories/GHSA-c2c7-rcm5-vvqj',
+97 silly audit report       title: 'Picomatch has a ReDoS vulnerability via extglob quantifiers',
+97 silly audit report       severity: 'high',
+97 silly audit report       vulnerable_versions: '>=4.0.0 <4.0.4',
+97 silly audit report       cwe: [Array],
+97 silly audit report       cvss: [Object]
+97 silly audit report     }
+97 silly audit report   ],
+97 silly audit report   vite: [
+97 silly audit report     {
+97 silly audit report       id: 1116005,
+97 silly audit report       url: 'https://github.com/advisories/GHSA-4w7w-66w2-5vf9',
+97 silly audit report       title: 'Vite Vulnerable to Path Traversal in Optimized Deps `.map` Handling',
+97 silly audit report       severity: 'moderate',
+97 silly audit report       vulnerable_versions: '<=6.4.1',
+97 silly audit report       cwe: [Array],
+97 silly audit report       cvss: [Object]
+97 silly audit report     }
+97 silly audit report   ]
+97 silly audit report }
+98 silly packumentCache corgi:https://registry.npmjs.org/esbuild cache-miss
+99 silly packumentCache corgi:https://registry.npmjs.org/picomatch cache-miss
+100 silly packumentCache corgi:https://registry.npmjs.org/vite cache-miss
+101 http fetch GET 200 https://registry.npmjs.org/rollup/-/rollup-4.59.0.tgz 314ms (cache miss)
+102 http fetch GET 200 https://registry.npmjs.org/picomatch 35ms (cache miss)
+103 silly packumentCache corgi:https://registry.npmjs.org/picomatch set size:undefined disposed:false
+104 http fetch GET 200 https://registry.npmjs.org/vite/-/vite-5.4.21.tgz 353ms (cache miss)
+105 http fetch GET 200 https://registry.npmjs.org/esbuild 75ms (cache miss)
+106 silly packumentCache corgi:https://registry.npmjs.org/esbuild set size:undefined disposed:false
+107 http fetch GET 200 https://registry.npmjs.org/vite 91ms (cache miss)
+108 silly packumentCache corgi:https://registry.npmjs.org/vite set size:undefined disposed:false
+109 silly packumentCache corgi:https://registry.npmjs.org/anymatch cache-miss
+110 silly packumentCache corgi:https://registry.npmjs.org/micromatch cache-miss
+111 silly packumentCache corgi:https://registry.npmjs.org/readdirp cache-miss
+112 silly packumentCache corgi:https://registry.npmjs.org/vite-plugin-full-reload cache-miss
+113 http fetch GET 200 https://registry.npmjs.org/autoprefixer/-/autoprefixer-10.4.27.tgz 508ms (cache miss)
+114 http fetch GET 200 https://registry.npmjs.org/readdirp 31ms (cache miss)
+115 silly packumentCache corgi:https://registry.npmjs.org/readdirp set size:undefined disposed:false
+116 http fetch GET 200 https://registry.npmjs.org/micromatch 33ms (cache miss)
+117 silly packumentCache corgi:https://registry.npmjs.org/micromatch set size:undefined disposed:false
+118 http fetch GET 200 https://registry.npmjs.org/anymatch 40ms (cache miss)
+119 silly packumentCache corgi:https://registry.npmjs.org/anymatch set size:undefined disposed:false
+120 http fetch GET 200 https://registry.npmjs.org/resolve/-/resolve-1.22.11.tgz 549ms (cache miss)
+121 http fetch GET 200 https://registry.npmjs.org/axios/-/axios-1.13.6.tgz 566ms (cache miss)
+122 http fetch GET 200 https://registry.npmjs.org/alpinejs/-/alpinejs-3.15.8.tgz 580ms (cache miss)
+123 http fetch GET 200 https://registry.npmjs.org/sucrase/-/sucrase-3.35.1.tgz 677ms (cache miss)
+124 http fetch GET 200 https://registry.npmjs.org/@vue/shared/-/shared-3.1.5.tgz 674ms (cache miss)
+125 http fetch GET 200 https://registry.npmjs.org/@rollup/rollup-win32-x64-gnu/-/rollup-win32-x64-gnu-4.59.0.tgz 713ms (cache miss)
+126 http fetch GET 200 https://registry.npmjs.org/@rollup/rollup-win32-x64-msvc/-/rollup-win32-x64-msvc-4.59.0.tgz 728ms (cache miss)
+127 http fetch GET 200 https://registry.npmjs.org/tailwindcss/-/tailwindcss-3.4.19.tgz 736ms (cache miss)
+128 http fetch GET 200 https://registry.npmjs.org/@vue/reactivity/-/reactivity-3.1.5.tgz 766ms (cache miss)
+129 http fetch GET 200 https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001776.tgz 1098ms (cache miss)
+130 info run esbuild@0.21.5 postinstall node_modules/esbuild node install.js
+131 http fetch GET 200 https://registry.npmjs.org/vite-plugin-full-reload 863ms (cache miss)
+132 silly packumentCache corgi:https://registry.npmjs.org/vite-plugin-full-reload set size:undefined disposed:false
+133 silly packumentCache corgi:https://registry.npmjs.org/tinyglobby cache-miss
+134 silly packumentCache corgi:https://registry.npmjs.org/fdir cache-miss
+135 http fetch GET 200 https://registry.npmjs.org/tinyglobby 25ms (cache miss)
+136 silly packumentCache corgi:https://registry.npmjs.org/tinyglobby set size:undefined disposed:false
+137 http fetch GET 200 https://registry.npmjs.org/fdir 31ms (cache miss)
+138 silly packumentCache corgi:https://registry.npmjs.org/fdir set size:undefined disposed:false
+139 silly packumentCache corgi:https://registry.npmjs.org/laravel-vite-plugin cache-miss
+140 http fetch GET 200 https://registry.npmjs.org/laravel-vite-plugin 310ms (cache miss)
+141 silly packumentCache corgi:https://registry.npmjs.org/laravel-vite-plugin set size:undefined disposed:false
+142 info run esbuild@0.21.5 postinstall { code: 0, signal: null }
+143 silly CHANGE node_modules/update-browserslist-db
+144 silly CHANGE node_modules/tailwindcss
+145 silly CHANGE node_modules/sucrase
+146 silly CHANGE node_modules/resolve
+147 silly CHANGE node_modules/nanoid
+148 silly CHANGE node_modules/jiti
+149 silly CHANGE node_modules/esbuild
+150 silly CHANGE node_modules/cssesc
+151 silly CHANGE node_modules/browserslist
+152 silly CHANGE node_modules/@rollup/rollup-win32-x64-msvc
+153 silly CHANGE node_modules/@rollup/rollup-win32-x64-gnu
+154 silly CHANGE node_modules/@vue/reactivity
+155 silly CHANGE node_modules/@vue/shared
+156 silly CHANGE node_modules/vite-plugin-full-reload
+157 silly CHANGE node_modules/vite
+158 silly CHANGE node_modules/rollup
+159 silly CHANGE node_modules/laravel-vite-plugin
+160 silly CHANGE node_modules/electron-to-chromium
+161 silly CHANGE node_modules/caniuse-lite
+162 silly CHANGE node_modules/baseline-browser-mapping
+163 silly CHANGE node_modules/axios
+164 silly CHANGE node_modules/autoprefixer
+165 silly CHANGE node_modules/alpinejs
+166 verbose cwd E:\Ielts-Master
+167 verbose os Windows_NT 10.0.26200
+168 verbose node v24.14.1
+169 verbose npm  v11.11.0
+170 notice
+170 notice New minor version of npm available! 11.11.0 -> 11.12.1
+170 notice Changelog: https://github.com/npm/cli/releases/tag/v11.12.1
+170 notice To update run: npm install -g npm@11.12.1
+170 notice  { force: true, Symbol(proc-log.meta): true }
+171 verbose exit 0
+172 info ok

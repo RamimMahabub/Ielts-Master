@@ -7,9 +7,20 @@ use Illuminate\Support\Facades\Auth;
 
 class NotificationBell extends Component
 {
-    public function getNotificationsProperty()
+    public function getUnreadNotificationsProperty()
     {
         return Auth::user()?->unreadNotifications ?? collect();
+    }
+
+    public function getReadNotificationsProperty()
+    {
+        $user = Auth::user();
+
+        if (!$user) {
+            return collect();
+        }
+
+        return $user->readNotifications()->latest()->limit(20)->get();
     }
 
     public function markAsRead(string $id)
@@ -17,6 +28,12 @@ class NotificationBell extends Component
         $notification = Auth::user()->notifications()->findOrFail($id);
         $notification->markAsRead();
         $this->dispatch('notificationRead'); // For cross-component updates if needed
+    }
+
+    public function markAsUnread(string $id)
+    {
+        $notification = Auth::user()->notifications()->findOrFail($id);
+        $notification->markAsUnread();
     }
 
     public function render()

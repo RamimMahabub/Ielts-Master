@@ -29,7 +29,7 @@ class NewMockTestPublished extends Notification
             'title' => 'New Mock Test Published',
             'message' => "A new mock test '{$this->mockTest->title}' is now available.",
             'mock_test_id' => $this->mockTest->id,
-            'link' => route('student.test.attempt', $this->mockTest->id),
+            'link' => route('student.test.attempt', $this->mockTest->id, false),
         ];
     }
 }

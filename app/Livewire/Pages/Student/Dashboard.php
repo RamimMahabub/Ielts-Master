@@ -42,6 +42,11 @@ class Dashboard extends Component
         $this->notifications = $this->user->fresh()->unreadNotifications;
     }
 
+    public function refreshNotifications(): void
+    {
+        $this->notifications = $this->user->fresh()->unreadNotifications;
+    }
+
     public function render()
     {
         return view('livewire.pages.student.dashboard')->layout('layouts.app');

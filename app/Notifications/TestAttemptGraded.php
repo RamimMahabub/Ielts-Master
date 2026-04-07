@@ -29,7 +29,7 @@ class TestAttemptGraded extends Notification
             'title' => 'Test Graded',
             'message' => "Your results for '{$this->attempt->mockTest->title}' are now available. Band: {$this->attempt->placeholder_band}.",
             'attempt_id' => $this->attempt->id,
-            'link' => route('student.history'),
+            'link' => route('student.history', [], false),
         ];
     }
 }
