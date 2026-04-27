@@ -82,4 +82,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(StudentClassRecordingStatus::class);
     }
+
+    public function questionBookmarks()
+    {
+        return $this->hasMany(StudentQuestionBookmark::class);
+    }
 }

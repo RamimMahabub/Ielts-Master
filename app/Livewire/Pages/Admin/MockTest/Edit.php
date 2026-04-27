@@ -7,6 +7,7 @@ use App\Models\MockTestModule;
 use App\Models\MockTestModuleItem;
 use App\Models\QuestionBankItem;
 use App\Support\IeltsTypes;
+use App\Support\StudentNotificationDispatcher;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -89,6 +90,12 @@ class Edit extends Component
             'testType' => 'required|in:academic,general',
         ]);
 
+        $wasPublished = false;
+
+        if ($this->mockTestId) {
+            $wasPublished = (bool) MockTest::whereKey($this->mockTestId)->value('is_published');
+        }
+
         $test = $this->mockTestId
             ? tap(MockTest::findOrFail($this->mockTestId))->update([
                 'title'        => $this->title,
@@ -125,7 +132,13 @@ class Edit extends Component
             }
         }
 
-        session()->flash('status', 'Mock test saved.');
+        if ($this->isPublished && !$wasPublished) {
+            StudentNotificationDispatcher::mockTestPublished($test);
+            session()->flash('status', 'Mock test saved, published, and students notified.');
+        } else {
+            session()->flash('status', 'Mock test saved.');
+        }
+
         return redirect()->route('admin.mock_test.edit', $test);
     }
 

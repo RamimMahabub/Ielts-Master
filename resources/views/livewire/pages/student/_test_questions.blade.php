@@ -45,9 +45,18 @@
                     <div class="flex gap-3">
                         <span class="font-bold text-indigo-600 w-6 shrink-0">{{ $q->q_number }}.</span>
                         <div class="flex-1 space-y-2">
-                            @if($q->prompt)
-                                <p class="text-sm">{{ $q->prompt }}</p>
-                            @endif
+                            <div class="flex items-start justify-between gap-3">
+                                <div class="min-w-0">
+                                    @if($q->prompt)
+                                        <p class="text-sm">{{ $q->prompt }}</p>
+                                    @endif
+                                </div>
+                                <button type="button"
+                                        wire:click="toggleBookmark({{ $qid }})"
+                                        class="shrink-0 rounded-lg border px-2.5 py-1 text-xs font-semibold transition {{ in_array($qid, $bookmarkedQuestionIds ?? [], true) ? 'border-amber-300 bg-amber-100 text-amber-800 dark:border-amber-700 dark:bg-amber-900/40 dark:text-amber-200' : 'border-slate-200 bg-white text-slate-500 hover:border-amber-300 hover:text-amber-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-400 dark:hover:border-amber-700 dark:hover:text-amber-200' }}">
+                                    {{ in_array($qid, $bookmarkedQuestionIds ?? [], true) ? 'Saved' : 'Bookmark' }}
+                                </button>
+                            </div>
 
                             @if($type === 'mcq_multi')
                                 @foreach($q->options_json ?? [] as $opt)

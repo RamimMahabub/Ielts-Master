@@ -25,4 +25,9 @@ class Question extends Model
     {
         return $this->hasMany(TestAttemptAnswer::class, 'question_id');
     }
+
+    public function bookmarks()
+    {
+        return $this->hasMany(StudentQuestionBookmark::class);
+    }
 }

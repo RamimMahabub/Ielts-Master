@@ -8,6 +8,7 @@ use App\Models\TestAttempt;
 use App\Models\MockTest;
 use App\Models\StudentClassRecordingStatus;
 use App\Models\StudentLearningResourceStatus;
+use App\Support\StudentSmartFeatures;
 
 class Dashboard extends Component
 {
@@ -19,6 +20,9 @@ class Dashboard extends Component
     public $completedLearningResourcesCount = 0;
     public $completedRecordingsCount = 0;
     public $watchLaterRecordings;
+    public array $performanceDashboard = [];
+    public array $weaknessReport = [];
+    public $smartRecommendations;
 
     public function mount()
     {
@@ -54,6 +58,8 @@ class Dashboard extends Component
             ->latest('updated_at')
             ->take(5)
             ->get();
+
+        $this->loadSmartFeatures();
     }
 
     public function markAsRead(string $id): void
@@ -66,6 +72,17 @@ class Dashboard extends Component
     public function refreshNotifications(): void
     {
         $this->notifications = $this->user->fresh()->unreadNotifications;
+        $this->availableTests = MockTest::where('is_published', true)
+            ->with('modules')
+            ->latest()
+            ->get();
+    }
+
+    private function loadSmartFeatures(): void
+    {
+        $this->performanceDashboard = StudentSmartFeatures::performanceDashboard($this->user->id);
+        $this->weaknessReport = StudentSmartFeatures::weaknessReport($this->user->id);
+        $this->smartRecommendations = StudentSmartFeatures::recommendations($this->user->id, 4);
     }
 
     public function render()

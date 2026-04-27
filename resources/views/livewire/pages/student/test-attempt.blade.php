@@ -16,7 +16,7 @@
     $totalQs = count($flatQuestions);
 @endphp
 
-<div x-data="ieltsTimer(@js($endsAtTimestamp), {{ $attempt->id }})" x-init="init()"
+<div x-data="ieltsTimer(@js($endsAtTimestamp), {{ $attempt->id }}, $wire)" x-init="init()"
      class="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 -mx-4 sm:-mx-6 lg:-mx-8 -mt-6 mb-0">
 
     {{-- Top bar --}}
@@ -158,9 +158,19 @@
                 </div>
                 <div class="overflow-y-auto p-6 bg-slate-50 dark:bg-slate-950 space-y-6">
                     @foreach($flatQuestions as $row)
-                        @php $q = $row['q']; @endphp
+                        @php
+                            $q = $row['q'];
+                            $isBookmarked = in_array($q->id, $bookmarkedQuestionIds ?? [], true);
+                        @endphp
                         <div>
-                            <p class="text-xs font-bold text-indigo-600 mb-1">Task {{ $row['n'] }}</p>
+                            <div class="mb-2 flex items-center justify-between gap-3">
+                                <p class="text-xs font-bold text-indigo-600">Task {{ $row['n'] }}</p>
+                                <button type="button"
+                                        wire:click="toggleBookmark({{ $q->id }})"
+                                        class="shrink-0 rounded-lg border px-2.5 py-1 text-xs font-semibold transition {{ $isBookmarked ? 'border-amber-300 bg-amber-100 text-amber-800 dark:border-amber-700 dark:bg-amber-900/40 dark:text-amber-200' : 'border-slate-200 bg-white text-slate-500 hover:border-amber-300 hover:text-amber-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-400 dark:hover:border-amber-700 dark:hover:text-amber-200' }}">
+                                    {{ $isBookmarked ? 'Saved' : 'Bookmark' }}
+                                </button>
+                            </div>
                             <textarea
                                 wire:change="saveAnswer({{ $q->id }}, $event.target.value)"
                                 rows="20"
@@ -168,7 +178,7 @@
                                 placeholder="Write your response here..."
                             >{{ is_string($answers[$q->id] ?? null) ? $answers[$q->id] : '' }}</textarea>
                             <p class="text-xs text-slate-500 mt-1" x-data="{ words: 0 }"
-                               x-init="$el.previousElementSibling.previousElementSibling.addEventListener('input', e => words = (e.target.value.match(/\S+/g)||[]).length)">
+                               x-init="$el.previousElementSibling.addEventListener('input', e => words = (e.target.value.match(/\S+/g)||[]).length)">
                                 <span x-text="words"></span> words
                             </p>
                         </div>
@@ -186,7 +196,7 @@
                     $questions = [];
                     foreach ($item->bankItem->groups as $group) {
                         foreach ($group->questions as $q) {
-                            if ($q->prompt) $questions[] = ['n' => $q->q_number, 'text' => $q->prompt];
+                            if ($q->prompt) $questions[] = ['id' => $q->id, 'n' => $q->q_number, 'text' => $q->prompt];
                         }
                     }
                     $speakingParts[] = [
@@ -283,7 +293,14 @@
                         <template x-if="state === 'reading' || state === 'answering'">
                             <div>
                                 <template x-if="currentQ()">
-                                    <p class="text-lg leading-relaxed" x-text="currentQ().text"></p>
+                                    <div class="flex items-start justify-between gap-4">
+                                        <p class="text-lg leading-relaxed" x-text="currentQ().text"></p>
+                                        <button type="button"
+                                                @click="$wire.toggleBookmark(currentQ().id)"
+                                                class="shrink-0 rounded-lg border border-slate-200 bg-white px-2.5 py-1 text-xs font-semibold text-slate-500 transition hover:border-amber-300 hover:text-amber-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-400 dark:hover:border-amber-700 dark:hover:text-amber-200">
+                                            Bookmark
+                                        </button>
+                                    </div>
                                 </template>
 
                                 <template x-if="state === 'answering' && currentPart()?.part !== 2">
@@ -688,11 +705,12 @@
             window.speechSynthesis.onvoiceschanged = () => {};
         }
 
-        function ieltsTimer(endsAt, attemptId) {
+        function ieltsTimer(endsAt, attemptId, component) {
             return {
                 endsAt: endsAt,
                 timeLeft: 0,
                 tick: null,
+                submitted: false,
                 init() {
                     this.recompute();
                     this.tick = setInterval(() => this.recompute(), 1000);
@@ -700,10 +718,14 @@
                 recompute() {
                     if (!this.endsAt) { this.timeLeft = 0; return; }
                     this.timeLeft = Math.max(0, this.endsAt - Math.floor(Date.now()/1000));
-                    if (this.timeLeft === 0 && this.endsAt) {
+                    if (this.timeLeft === 0 && this.endsAt && !this.submitted) {
+                        this.submitted = true;
                         clearInterval(this.tick);
-                        // auto-submit module
-                        Livewire.find(document.querySelector('[wire\\:id]').getAttribute('wire:id'))?.call('finishModule');
+                        if (component.$call) {
+                            component.$call('finishModule');
+                        } else {
+                            component.finishModule();
+                        }
                     }
                 },
                 formatTime(s) {

@@ -19,7 +19,8 @@
                             <th class="py-2 pr-4">W</th>
                             <th class="py-2 pr-4">S</th>
                             <th class="py-2 pr-4">Overall</th>
-                            <th class="py-2">Date</th>
+                            <th class="py-2 pr-4">Date</th>
+                            <th class="py-2">Report</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -32,7 +33,16 @@
                                 <td class="py-2 pr-4">{{ $attempt->writing_band ?? '-' }}</td>
                                 <td class="py-2 pr-4">{{ $attempt->speaking_band ?? '-' }}</td>
                                 <td class="py-2 pr-4 font-semibold">{{ $attempt->overall_band ?? '-' }}</td>
-                                <td class="py-2">{{ $attempt->created_at->format('Y-m-d H:i') }}</td>
+                                <td class="py-2 pr-4">{{ $attempt->created_at->format('Y-m-d H:i') }}</td>
+                                <td class="py-2">
+                                    @if($attempt->status === 'completed' && $attempt->overall_band !== null)
+                                        <a href="{{ route('student.reports.band_score', $attempt) }}" target="_blank" class="inline-flex items-center rounded-lg bg-indigo-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-indigo-500">
+                                            Download PDF
+                                        </a>
+                                    @else
+                                        <span class="text-xs text-slate-400">After grading</span>
+                                    @endif
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

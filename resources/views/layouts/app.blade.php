@@ -55,6 +55,8 @@
                             <a href="{{ route('student.profile') }}" class="block rounded-xl px-4 py-2 {{ request()->routeIs('student.profile') ? 'bg-indigo-600 text-white' : 'hover:bg-slate-100 dark:hover:bg-slate-800' }}">Profile</a>
                             <a href="{{ route('student.guided_practice') }}" class="block rounded-xl px-4 py-2 {{ request()->routeIs('student.guided_practice') ? 'bg-indigo-600 text-white' : 'hover:bg-slate-100 dark:hover:bg-slate-800' }}">Guided Practice Hub</a>
                             <a href="{{ route('student.vocabulary') }}" class="block rounded-xl px-4 py-2 {{ request()->routeIs('student.vocabulary') ? 'bg-indigo-600 text-white' : 'hover:bg-slate-100 dark:hover:bg-slate-800' }}">Vocabulary Builder</a>
+                            <a href="{{ route('student.smart_practice') }}" class="block rounded-xl px-4 py-2 {{ request()->routeIs('student.smart_practice') ? 'bg-indigo-600 text-white' : 'hover:bg-slate-100 dark:hover:bg-slate-800' }}">Smart Practice</a>
+                            <a href="{{ route('student.bookmarks') }}" class="block rounded-xl px-4 py-2 {{ request()->routeIs('student.bookmarks') ? 'bg-indigo-600 text-white' : 'hover:bg-slate-100 dark:hover:bg-slate-800' }}">Bookmarks</a>
                             <a href="{{ route('student.history') }}" class="block rounded-xl px-4 py-2 {{ request()->routeIs('student.history') ? 'bg-indigo-600 text-white' : 'hover:bg-slate-100 dark:hover:bg-slate-800' }}">Test History</a>
                         @endif
                     </nav>

@@ -3,6 +3,7 @@
 namespace App\Livewire\Pages\Admin\MockTest;
 
 use App\Models\MockTest;
+use App\Support\StudentNotificationDispatcher;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -25,6 +26,14 @@ class Index extends Component
         $m = MockTest::findOrFail($id);
         $m->is_published = !$m->is_published;
         $m->save();
+
+        if ($m->is_published) {
+            StudentNotificationDispatcher::mockTestPublished($m);
+            session()->flash('status', 'Mock test published and students notified.');
+            return;
+        }
+
+        session()->flash('status', 'Mock test unpublished.');
     }
 
     public function render()

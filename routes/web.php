@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\ClassRecording;
 use App\Models\GuidedPracticeVideo;
+use App\Http\Controllers\StudentReportController;
 
 Route::get('/', function () {
     if (!Auth::check()) {
@@ -58,8 +59,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/student/profile', \App\Livewire\Pages\Student\Profile::class)->name('student.profile');
         Route::get('/student/guided-practice', \App\Livewire\Pages\Student\GuidedPractice::class)->name('student.guided_practice');
         Route::get('/student/vocabulary', \App\Livewire\Pages\Student\Vocabulary::class)->name('student.vocabulary');
+        Route::get('/student/smart-practice', \App\Livewire\Pages\Student\SmartPractice::class)->name('student.smart_practice');
+        Route::get('/student/bookmarks', \App\Livewire\Pages\Student\BookmarkedQuestions::class)->name('student.bookmarks');
         Route::get('/test/{id}', \App\Livewire\Pages\Student\TestAttempt::class)->name('student.test.attempt');
         Route::get('/student/history', \App\Livewire\Pages\Student\TestHistory::class)->name('student.history');
+        Route::get('/student/reports/{attempt}/band-score', [StudentReportController::class, 'show'])->name('student.reports.band_score');
     });
 
     Route::middleware('role:admin')->group(function () {

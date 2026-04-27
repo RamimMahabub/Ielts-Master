@@ -1,5 +1,5 @@
 <div>
-    <div wire:poll.30s="refreshNotifications"></div>
+    <div wire:poll.5s="refreshNotifications"></div>
 
     <x-slot name="header">
         <div class="flex flex-col gap-1">
@@ -88,6 +88,112 @@
                             <p class="rounded-lg border border-dashed border-slate-300 bg-slate-50 px-3 py-4 text-sm text-slate-500 dark:border-slate-600 dark:bg-slate-800/40 dark:text-slate-400">No recent test attempts found.</p>
                         @endif
                     </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="rounded-3xl border border-slate-200 bg-white/80 p-6 shadow-sm backdrop-blur dark:border-slate-700 dark:bg-slate-900/70 md:p-8">
+            <div class="mb-5 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+                <div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white">Performance Analysis </h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-300">Section-wise band averages and overall progress from your real mock test attempts.</p>
+                </div>
+                <span class="inline-flex w-fit items-center rounded-full border border-slate-300 bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-300">
+                    {{ $performanceDashboard['attempt_count'] ?? 0 }} {{ ($performanceDashboard['attempt_count'] ?? 0) === 1 ? 'attempt' : 'attempts' }}
+                </span>
+            </div>
+
+            <div class="grid grid-cols-1 gap-4 lg:grid-cols-4">
+                @foreach(($performanceDashboard['section_averages'] ?? []) as $section => $score)
+                    @php
+                        $percent = $score ? min(100, round(($score / 9) * 100)) : 0;
+                        $tone = match($section) {
+                            'listening' => 'sky',
+                            'reading' => 'emerald',
+                            'writing' => 'amber',
+                            default => 'indigo',
+                        };
+                    @endphp
+                    <article class="rounded-2xl border border-slate-200 bg-slate-50/70 p-4 dark:border-slate-700 dark:bg-slate-800/50">
+                        <div class="flex items-center justify-between">
+                            <p class="text-xs font-semibold uppercase text-slate-600 dark:text-slate-300">{{ ucfirst($section) }}</p>
+                            <p class="text-2xl font-bold text-slate-900 dark:text-white">{{ $score ? number_format($score, 1) : '-' }}</p>
+                        </div>
+                        <div class="mt-3 h-2 rounded-full bg-slate-200 dark:bg-slate-700">
+                            <div class="h-2 rounded-full {{ $tone === 'sky' ? 'bg-sky-500' : ($tone === 'emerald' ? 'bg-emerald-500' : ($tone === 'amber' ? 'bg-amber-500' : 'bg-indigo-500')) }}" style="width: {{ $percent }}%"></div>
+                        </div>
+                    </article>
+                @endforeach
+            </div>
+
+            <div class="mt-6 grid grid-cols-1 gap-5 lg:grid-cols-3">
+                <article class="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-900 lg:col-span-2">
+                    <div class="mb-4 flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-bold text-slate-900 dark:text-white">Overall Band Progress</p>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">Last completed attempts with overall bands</p>
+                        </div>
+                        <span class="text-xs font-semibold text-slate-600 dark:text-slate-300">Best {{ number_format($performanceDashboard['highest_overall'] ?? 0, 1) }}</span>
+                    </div>
+                    @if(!empty($performanceDashboard['progress']))
+                        <div class="flex h-48 items-end gap-3 border-b border-l border-slate-200 px-3 pb-2 dark:border-slate-700">
+                            @foreach($performanceDashboard['progress'] as $point)
+                                @php($barHeight = max(8, round(($point['band'] / 9) * 100)))
+                                <div class="flex min-w-0 flex-1 flex-col items-center gap-2">
+                                    <div class="flex h-36 w-full items-end justify-center">
+                                        <div class="w-full max-w-10 rounded-t-lg bg-indigo-500" style="height: {{ $barHeight }}%"></div>
+                                    </div>
+                                    <p class="text-xs font-semibold text-slate-700 dark:text-slate-200">{{ number_format($point['band'], 1) }}</p>
+                                    <p class="w-full truncate text-center text-[10px] text-slate-500">{{ $point['date'] }}</p>
+                                </div>
+                            @endforeach
+                        </div>
+                    @else
+                        <p class="rounded-lg border border-dashed border-slate-300 bg-slate-50 px-3 py-6 text-center text-sm text-slate-500 dark:border-slate-600 dark:bg-slate-800/40 dark:text-slate-400">
+                            Complete a fully graded mock test to see your overall progress graph.
+                        </p>
+                    @endif
+                </article>
+
+                <article class="rounded-2xl border border-rose-100 bg-rose-50/60 p-5 dark:border-rose-900/40 dark:bg-rose-950/20">
+                    <p class="text-sm font-bold text-rose-900 dark:text-rose-100">Weakness Detection</p>
+                    <p class="mt-1 text-xs text-rose-700 dark:text-rose-200">{{ $weaknessReport['summary'] ?? 'Complete more mock tests to unlock personalized weakness analysis.' }}</p>
+                    <div class="mt-4 space-y-3">
+                        @forelse(($weaknessReport['weakest_modules'] ?? []) as $weakness)
+                            <div class="rounded-xl bg-white/80 p-3 text-sm dark:bg-slate-900/70">
+                                <div class="flex items-center justify-between">
+                                    <span class="font-semibold text-slate-900 dark:text-white">{{ $weakness['label'] }}</span>
+                                    <span class="text-xs font-bold text-rose-700 dark:text-rose-200">Band {{ number_format($weakness['score'], 1) }}</span>
+                                </div>
+                                <p class="mt-1 text-xs text-slate-600 dark:text-slate-300">{{ $weakness['message'] }}</p>
+                            </div>
+                        @empty
+                            <p class="rounded-xl bg-white/70 p-3 text-xs text-slate-500 dark:bg-slate-900/70 dark:text-slate-400">No weak section detected yet.</p>
+                        @endforelse
+                    </div>
+                </article>
+            </div>
+
+            <div class="mt-6 rounded-2xl border border-indigo-100 bg-indigo-50/50 p-5 dark:border-indigo-900/40 dark:bg-indigo-950/20">
+                <div class="mb-4 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+                    <div>
+                        <h4 class="font-bold text-slate-900 dark:text-white">Smart Practice Recommendations</h4>
+                        <p class="text-sm text-slate-600 dark:text-slate-300">Questions selected from your weaker sections and formats.</p>
+                    </div>
+                    <a href="{{ route('student.smart_practice') }}" class="inline-flex w-fit items-center rounded-xl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-500">Open Smart Practice</a>
+                </div>
+                <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
+                    @forelse($smartRecommendations ?? [] as $question)
+                        <article class="rounded-xl border border-white/70 bg-white/80 p-4 dark:border-slate-800 dark:bg-slate-900/80">
+                            <div class="mb-2 flex items-center justify-between gap-3">
+                                <span class="text-xs font-semibold uppercase text-indigo-700 dark:text-indigo-300">{{ ucfirst($question->group->item->module ?? 'practice') }}</span>
+                                <span class="rounded-md bg-slate-100 px-2 py-1 text-[10px] font-semibold text-slate-600 dark:bg-slate-800 dark:text-slate-300">{{ str_replace('_', ' ', $question->group->question_type ?? 'question') }}</span>
+                            </div>
+                            <p class="line-clamp-2 text-sm font-semibold text-slate-900 dark:text-white">{{ $question->prompt ?: ($question->group->item->title ?? 'Practice question') }}</p>
+                        </article>
+                    @empty
+                        <p class="rounded-xl border border-dashed border-indigo-200 bg-white/70 p-4 text-sm text-slate-500 dark:border-indigo-900 dark:bg-slate-900/60 dark:text-slate-400">Take a mock test to unlock targeted recommendations.</p>
+                    @endforelse
                 </div>
             </div>
         </section>

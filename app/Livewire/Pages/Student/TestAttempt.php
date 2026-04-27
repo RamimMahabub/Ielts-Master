@@ -3,11 +3,13 @@
 namespace App\Livewire\Pages\Student;
 
 use App\Models\MockTest;
+use App\Models\StudentQuestionBookmark;
 use App\Models\TestAttempt as Attempt;
 use App\Models\TestAttemptAnswer;
 use App\Services\BandScore;
 use App\Support\IeltsTypes;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -26,6 +28,9 @@ class TestAttempt extends Component
 
     /** answers[questionId] => string (or array for multi-select) */
     public array $answers = [];
+
+    /** question ids bookmarked by this student */
+    public array $bookmarkedQuestionIds = [];
 
     /** UNIX timestamp at which the current module's timer ends. */
     public ?int $endsAtTimestamp = null;
@@ -50,6 +55,7 @@ class TestAttempt extends Component
             $this->answers[$a->question_id] = $a->answer_json !== null ? $a->answer_json : (string) $a->answer_text;
         }
 
+        $this->loadBookmarkedQuestionIds();
         $this->endsAtTimestamp = $this->computeEndsAt();
     }
 
@@ -94,6 +100,50 @@ class TestAttempt extends Component
         );
 
         $this->lastSavedAt = now()->format('H:i:s');
+    }
+
+    public function toggleBookmark(int $questionId): void
+    {
+        if (!$this->bookmarksTableExists()) {
+            $this->dispatch('bookmark-unavailable', message: 'Bookmark storage is not ready yet. Please run the latest migrations.');
+            return;
+        }
+
+        $userId = Auth::id();
+
+        $bookmark = StudentQuestionBookmark::where('user_id', $userId)
+            ->where('question_id', $questionId)
+            ->first();
+
+        if ($bookmark) {
+            $bookmark->delete();
+        } else {
+            StudentQuestionBookmark::create([
+                'user_id' => $userId,
+                'question_id' => $questionId,
+                'source_module' => $this->currentModule,
+            ]);
+        }
+
+        $this->loadBookmarkedQuestionIds();
+    }
+
+    private function loadBookmarkedQuestionIds(): void
+    {
+        if (!$this->bookmarksTableExists()) {
+            $this->bookmarkedQuestionIds = [];
+            return;
+        }
+
+        $this->bookmarkedQuestionIds = StudentQuestionBookmark::where('user_id', Auth::id())
+            ->pluck('question_id')
+            ->map(fn ($id) => (int) $id)
+            ->all();
+    }
+
+    private function bookmarksTableExists(): bool
+    {
+        return Schema::hasTable('student_question_bookmarks');
     }
 
     /**
