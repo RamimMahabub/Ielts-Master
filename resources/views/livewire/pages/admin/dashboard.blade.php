@@ -31,7 +31,7 @@
                     <a href="{{ route('admin.users') }}" class="block rounded-xl px-4 py-2 bg-slate-100/70 dark:bg-slate-800/70 hover:bg-indigo-100 dark:hover:bg-indigo-900/40">Manage Users</a>
                     <a href="{{ route('admin.instructor.verification') }}" class="block rounded-xl px-4 py-2 bg-slate-100/70 dark:bg-slate-800/70 hover:bg-indigo-100 dark:hover:bg-indigo-900/40">Approve Instructors</a>
                     <a href="{{ route('admin.question_bank') }}" class="block rounded-xl px-4 py-2 bg-slate-100/70 dark:bg-slate-800/70 hover:bg-indigo-100 dark:hover:bg-indigo-900/40">Question Bank CRUD</a>
-                    <a href="{{ route('admin.mock_test.create') }}" class="block rounded-xl px-4 py-2 bg-slate-100/70 dark:bg-slate-800/70 hover:bg-indigo-100 dark:hover:bg-indigo-900/40">Build Mock Test</a>
+                    <a href="{{ route('admin.mock_test') }}" class="block rounded-xl px-4 py-2 bg-slate-100/70 dark:bg-slate-800/70 hover:bg-indigo-100 dark:hover:bg-indigo-900/40">Build Mock Test</a>
                 </div>
             </div>
 
@@ -44,7 +44,7 @@
                         @foreach($recentAttempts as $attempt)
                             <li class="flex justify-between border-b border-slate-200/70 dark:border-slate-700/70 pb-2">
                                 <span>{{ $attempt->user->name }} - {{ $attempt->mockTest->title ?? 'Mock Test' }}</span>
-                                <span class="font-medium">{{ $attempt->status }} / {{ $attempt->raw_score ?? '-' }}</span>
+                                <span class="font-medium">{{ $attempt->status }} / Band {{ $attempt->overall_band ?? '-' }}</span>
                             </li>
                         @endforeach
                     </ul>

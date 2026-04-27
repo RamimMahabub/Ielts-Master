@@ -14,8 +14,11 @@
                         <tr class="text-left border-b border-slate-200 dark:border-slate-700">
                             <th class="py-2 pr-4">Test</th>
                             <th class="py-2 pr-4">Status</th>
-                            <th class="py-2 pr-4">Raw Score</th>
-                            <th class="py-2 pr-4">Band (Placeholder)</th>
+                            <th class="py-2 pr-4">L</th>
+                            <th class="py-2 pr-4">R</th>
+                            <th class="py-2 pr-4">W</th>
+                            <th class="py-2 pr-4">S</th>
+                            <th class="py-2 pr-4">Overall</th>
                             <th class="py-2">Date</th>
                         </tr>
                     </thead>
@@ -24,8 +27,11 @@
                             <tr class="border-b border-slate-100 dark:border-slate-800">
                                 <td class="py-2 pr-4">{{ $attempt->mockTest->title ?? 'Mock Test' }}</td>
                                 <td class="py-2 pr-4 capitalize">{{ str_replace('_', ' ', $attempt->status) }}</td>
-                                <td class="py-2 pr-4">{{ $attempt->raw_score ?? '-' }}</td>
-                                <td class="py-2 pr-4">{{ $attempt->placeholder_band ?? '-' }}</td>
+                                <td class="py-2 pr-4">{{ $attempt->listening_band ?? '-' }}</td>
+                                <td class="py-2 pr-4">{{ $attempt->reading_band ?? '-' }}</td>
+                                <td class="py-2 pr-4">{{ $attempt->writing_band ?? '-' }}</td>
+                                <td class="py-2 pr-4">{{ $attempt->speaking_band ?? '-' }}</td>
+                                <td class="py-2 pr-4 font-semibold">{{ $attempt->overall_band ?? '-' }}</td>
                                 <td class="py-2">{{ $attempt->created_at->format('Y-m-d H:i') }}</td>
                             </tr>
                         @endforeach

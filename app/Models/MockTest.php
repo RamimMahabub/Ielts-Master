@@ -2,32 +2,33 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class MockTest extends Model
 {
-    use HasFactory;
+    protected $fillable = ['title', 'test_type', 'is_published', 'created_by'];
 
-    protected $fillable = [
-        'title',
-        'duration_minutes',
-        'is_published',
-        'created_by',
+    protected $casts = [
+        'is_published' => 'boolean',
     ];
 
-    public function sections()
+    public function modules()
     {
-        return $this->hasMany(MockTestSection::class, 'mock_test_id');
-    }
-
-    public function attempts()
-    {
-        return $this->hasMany(TestAttempt::class, 'mock_test_id');
+        return $this->hasMany(MockTestModule::class)->orderBy('order_index');
     }
 
     public function creator()
     {
         return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function attempts()
+    {
+        return $this->hasMany(TestAttempt::class);
+    }
+
+    public function totalDurationMinutes(): int
+    {
+        return (int) $this->modules()->sum('duration_minutes');
     }
 }

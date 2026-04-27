@@ -17,8 +17,8 @@ class Students extends Component
 
     public $showDetailsModal = false;
     public $selectedStudent;
-    public $gradingScore = null;
-    public $gradingBand = '6.5';
+    public $gradingWritingBand = null;
+    public $gradingSpeakingBand = null;
     public $gradingAttemptId = null;
 
     public function mount(): void
@@ -45,7 +45,7 @@ class Students extends Component
                 'attempts as completed_attempts' => fn ($q) => $q->whereIn('status', ['completed', 'pending_evaluation']),
                 'attempts as pending_evaluation_attempts' => fn ($q) => $q->where('status', 'pending_evaluation'),
             ])
-            ->withAvg('attempts as avg_raw_score', 'raw_score')
+            ->withAvg('attempts as avg_band', 'overall_band')
             ->withMax('attempts as last_attempt_at', 'created_at')
             ->orderBy('name')
             ->get();
@@ -57,7 +57,7 @@ class Students extends Component
                 $student->last_attempt_at
             );
             $student->effort_level = $this->effortLevel($student->effort_score);
-            $student->avg_raw_score = round((float) ($student->avg_raw_score ?? 0), 2);
+            $student->avg_band = round((float) ($student->avg_band ?? 0), 2);
             return $student;
         });
 
@@ -78,7 +78,7 @@ class Students extends Component
                 'attempts as completed_attempts' => fn ($q) => $q->whereIn('status', ['completed', 'pending_evaluation']),
                 'attempts as pending_evaluation_attempts' => fn ($q) => $q->where('status', 'pending_evaluation'),
             ])
-            ->withAvg('attempts as avg_raw_score', 'raw_score')
+            ->withAvg('attempts as avg_band', 'overall_band')
             ->with([
                 'attempts' => fn ($q) => $q->with('mockTest')->latest()->take(8),
             ])
@@ -95,11 +95,12 @@ class Students extends Component
         $this->resetGrading();
     }
 
-    public function startGrading(int $attemptId, int $currentScore = 0): void
+    public function startGrading(int $attemptId): void
     {
+        $a = TestAttempt::findOrFail($attemptId);
         $this->gradingAttemptId = $attemptId;
-        $this->gradingScore = $currentScore;
-        $this->gradingBand = '6.5';
+        $this->gradingWritingBand = $a->writing_band;
+        $this->gradingSpeakingBand = $a->speaking_band;
     }
 
     public function cancelGrading(): void
@@ -112,11 +113,16 @@ class Students extends Component
         if (!$this->gradingAttemptId) return;
 
         $attempt = TestAttempt::findOrFail($this->gradingAttemptId);
-        $attempt->update([
-            'raw_score' => $this->gradingScore,
-            'placeholder_band' => $this->gradingBand,
-            'status' => 'completed',
-        ]);
+        $attempt->writing_band  = is_numeric($this->gradingWritingBand) ? (float) $this->gradingWritingBand : null;
+        $attempt->speaking_band = is_numeric($this->gradingSpeakingBand) ? (float) $this->gradingSpeakingBand : null;
+        $attempt->overall_band  = \App\Services\BandScore::overall(
+            $attempt->listening_band,
+            $attempt->reading_band,
+            $attempt->writing_band,
+            $attempt->speaking_band,
+        );
+        $attempt->status = $attempt->overall_band !== null ? 'completed' : 'pending_evaluation';
+        $attempt->save();
 
         $attempt->user->notify(new TestAttemptGraded($attempt));
 
@@ -130,8 +136,8 @@ class Students extends Component
     private function resetGrading(): void
     {
         $this->gradingAttemptId = null;
-        $this->gradingScore = null;
-        $this->gradingBand = '6.5';
+        $this->gradingWritingBand = null;
+        $this->gradingSpeakingBand = null;
     }
 
     private function computeEffortScore(int $totalAttempts, int $completedAttempts, $lastAttemptAt): int

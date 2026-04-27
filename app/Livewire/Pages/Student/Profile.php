@@ -192,7 +192,7 @@ class Profile extends Component
         $this->profileCompletion = $this->calculateProfileCompletion($user);
         $this->daysUntilTest = $user->preferred_test_date ? now()->startOfDay()->diffInDays($user->preferred_test_date, false) : null;
 
-        $this->averageScore = (float) (TestAttempt::where('user_id', $user->id)->avg('raw_score') ?? 0);
+        $this->averageScore = (float) (TestAttempt::where('user_id', $user->id)->whereNotNull('overall_band')->avg('overall_band') ?? 0);
         $this->targetGap = is_numeric($user->target_band) ? round((float) $user->target_band - $this->averageScore, 1) : null;
     }
 

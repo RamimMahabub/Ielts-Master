@@ -2,18 +2,18 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Question extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
-        'group_id',
-        'q_no',
-        'prompt',
-        'meta_json',
+        'group_id', 'q_number', 'order_index', 'prompt', 'options_json', 'correct_answers_json', 'points',
+    ];
+
+    protected $casts = [
+        'options_json' => 'array',
+        'correct_answers_json' => 'array',
+        'points' => 'decimal:2',
     ];
 
     public function group()
@@ -21,13 +21,8 @@ class Question extends Model
         return $this->belongsTo(QuestionGroup::class, 'group_id');
     }
 
-    public function options()
-    {
-        return $this->hasMany(QuestionOption::class, 'question_id');
-    }
-
     public function answers()
     {
-        return $this->hasMany(QuestionAnswer::class, 'question_id');
+        return $this->hasMany(TestAttemptAnswer::class, 'question_id');
     }
 }

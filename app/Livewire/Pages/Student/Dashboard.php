@@ -25,10 +25,11 @@ class Dashboard extends Component
             ->get();
 
         $this->averageScore = TestAttempt::where('user_id', $this->user->id)
-            ->avg('raw_score') ?? 0;
+            ->whereNotNull('overall_band')
+            ->avg('overall_band') ?? 0;
 
         $this->availableTests = MockTest::where('is_published', true)
-            ->with('sections.items.asset')
+            ->with('modules')
             ->latest()
             ->get();
 

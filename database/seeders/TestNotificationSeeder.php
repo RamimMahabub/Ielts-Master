@@ -28,7 +28,7 @@ class TestNotificationSeeder extends Seeder
         if (!$test) {
             $test = MockTest::create([
                 'title' => 'Sample IELTS Academic Test',
-                'duration_minutes' => 150,
+                'test_type' => 'academic',
                 'is_published' => true,
                 'created_by' => 1,
             ]);
@@ -36,7 +36,13 @@ class TestNotificationSeeder extends Seeder
 
         $attempt = TestAttempt::firstOrCreate(
             ['user_id' => 3, 'mock_test_id' => $test->id],
-            ['status' => 'completed', 'raw_score' => 32, 'placeholder_band' => '7.5']
+            [
+                'status' => 'completed',
+                'listening_raw' => 32, 'reading_raw' => 30,
+                'listening_band' => 7.5, 'reading_band' => 7.0,
+                'writing_band' => 6.5, 'speaking_band' => 7.0,
+                'overall_band' => 7.0,
+            ]
         );
 
         // Clear old notifications first to see fresh ones
