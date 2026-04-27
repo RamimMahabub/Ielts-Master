@@ -6,6 +6,8 @@ use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use App\Models\TestAttempt;
 use App\Models\MockTest;
+use App\Models\StudentClassRecordingStatus;
+use App\Models\StudentLearningResourceStatus;
 
 class Dashboard extends Component
 {
@@ -14,6 +16,9 @@ class Dashboard extends Component
     public $averageScore = 0;
     public $availableTests;
     public $notifications;
+    public $completedLearningResourcesCount = 0;
+    public $completedRecordingsCount = 0;
+    public $watchLaterRecordings;
 
     public function mount()
     {
@@ -34,6 +39,21 @@ class Dashboard extends Component
             ->get();
 
         $this->notifications = $this->user->unreadNotifications;
+
+        $this->completedLearningResourcesCount = StudentLearningResourceStatus::where('user_id', $this->user->id)
+            ->whereNotNull('completed_at')
+            ->count();
+
+        $this->completedRecordingsCount = StudentClassRecordingStatus::where('user_id', $this->user->id)
+            ->where('status', 'completed')
+            ->count();
+
+        $this->watchLaterRecordings = StudentClassRecordingStatus::where('user_id', $this->user->id)
+            ->where('status', 'watch_later')
+            ->with('classRecording')
+            ->latest('updated_at')
+            ->take(5)
+            ->get();
     }
 
     public function markAsRead(string $id): void

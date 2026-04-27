@@ -1,5 +1,5 @@
 <div>
-    <div wire:poll.5s="refreshNotifications"></div>
+    <div wire:poll.30s="refreshNotifications"></div>
 
     <x-slot name="header">
         <div class="flex flex-col gap-1">
@@ -89,6 +89,56 @@
                         @endif
                     </article>
                 </div>
+            </div>
+        </section>
+
+        <section class="rounded-3xl border border-slate-200 bg-white/80 p-6 shadow-sm backdrop-blur dark:border-slate-700 dark:bg-slate-900/70 md:p-8">
+            <div class="mb-5 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+                <div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white">Guided Practice Progress</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-300">Track your completed resources and class recording actions from the Guided Practice Hub.</p>
+                </div>
+                <a href="{{ route('student.guided_practice') }}" class="inline-flex w-fit items-center rounded-xl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-500">
+                    Open Guided Practice Hub
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-5">
+                <article class="rounded-2xl border border-emerald-200/70 bg-emerald-50/60 p-5 dark:border-emerald-900 dark:bg-emerald-900/20">
+                    <p class="text-xs font-semibold uppercase tracking-[0.12em] text-emerald-700 dark:text-emerald-300">Resources Completed</p>
+                    <p class="mt-2 text-3xl font-bold text-emerald-700 dark:text-emerald-200">{{ $completedLearningResourcesCount }}</p>
+                </article>
+                <article class="rounded-2xl border border-sky-200/70 bg-sky-50/60 p-5 dark:border-sky-900 dark:bg-sky-900/20">
+                    <p class="text-xs font-semibold uppercase tracking-[0.12em] text-sky-700 dark:text-sky-300">Recordings Completed</p>
+                    <p class="mt-2 text-3xl font-bold text-sky-700 dark:text-sky-200">{{ $completedRecordingsCount }}</p>
+                </article>
+                <article class="rounded-2xl border border-amber-200/70 bg-amber-50/60 p-5 dark:border-amber-900 dark:bg-amber-900/20">
+                    <p class="text-xs font-semibold uppercase tracking-[0.12em] text-amber-700 dark:text-amber-300">Watch Later Queue</p>
+                    <p class="mt-2 text-3xl font-bold text-amber-700 dark:text-amber-200">{{ $watchLaterRecordings->count() }}</p>
+                </article>
+            </div>
+
+            <div>
+                <h4 class="font-semibold text-slate-900 dark:text-white mb-3">Watch Later</h4>
+                @if($watchLaterRecordings->count() > 0)
+                    <div class="space-y-2">
+                        @foreach($watchLaterRecordings as $watchLater)
+                            <div class="flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50/70 px-4 py-3 dark:border-slate-700 dark:bg-slate-800/50">
+                                <div>
+                                    <p class="text-sm font-semibold text-slate-900 dark:text-white">{{ $watchLater->classRecording->title ?? 'Class recording' }}</p>
+                                    <p class="text-xs text-slate-500">Saved {{ $watchLater->updated_at->diffForHumans() }}</p>
+                                </div>
+                                @if($watchLater->classRecording)
+                                    <a href="{{ route('student.guided_practice') }}" class="text-xs font-semibold text-indigo-600 hover:underline">Go to recordings</a>
+                                @endif
+                            </div>
+                        @endforeach
+                    </div>
+                @else
+                    <p class="rounded-lg border border-dashed border-slate-300 bg-slate-50 px-3 py-4 text-sm text-slate-500 dark:border-slate-600 dark:bg-slate-800/40 dark:text-slate-400">
+                        No recordings in watch later.
+                    </p>
+                @endif
             </div>
         </section>
 

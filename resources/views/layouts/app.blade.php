@@ -32,6 +32,7 @@
                         @if($role === 'admin')
                             <a href="{{ route('admin.dashboard') }}" class="block rounded-xl px-4 py-2 {{ request()->routeIs('admin.dashboard') ? 'bg-indigo-600 text-white' : 'hover:bg-slate-100 dark:hover:bg-slate-800' }}">Dashboard</a>
                             <a href="{{ route('admin.profile') }}" class="block rounded-xl px-4 py-2 {{ request()->routeIs('admin.profile') ? 'bg-indigo-600 text-white' : 'hover:bg-slate-100 dark:hover:bg-slate-800' }}">Owner Profile</a>
+                            <a href="{{ route('admin.guided_practice') }}" class="block rounded-xl px-4 py-2 {{ request()->routeIs('admin.guided_practice') ? 'bg-indigo-600 text-white' : 'hover:bg-slate-100 dark:hover:bg-slate-800' }}">Guided Practice Hub</a>
                             <a href="{{ route('admin.users') }}" class="block rounded-xl px-4 py-2 {{ request()->routeIs('admin.users') ? 'bg-indigo-600 text-white' : 'hover:bg-slate-100 dark:hover:bg-slate-800' }}">User Management</a>
                             <a href="{{ route('admin.students') }}" class="block rounded-xl px-4 py-2 {{ request()->routeIs('admin.students') ? 'bg-indigo-600 text-white' : 'hover:bg-slate-100 dark:hover:bg-slate-800' }}">Students</a>
                             <a href="{{ route('admin.instructors') }}" class="block rounded-xl px-4 py-2 {{ request()->routeIs('admin.instructors') ? 'bg-indigo-600 text-white' : 'hover:bg-slate-100 dark:hover:bg-slate-800' }}">Instructors</a>
@@ -42,6 +43,7 @@
                             @if(Auth::user()->instructor_status === 'approved')
                                 <a href="{{ route('instructor.dashboard') }}" class="block rounded-xl px-4 py-2 {{ request()->routeIs('instructor.dashboard') ? 'bg-indigo-600 text-white' : 'hover:bg-slate-100 dark:hover:bg-slate-800' }}">Dashboard</a>
                                 <a href="{{ route('instructor.profile') }}" class="block rounded-xl px-4 py-2 {{ request()->routeIs('instructor.profile') ? 'bg-indigo-600 text-white' : 'hover:bg-slate-100 dark:hover:bg-slate-800' }}">Profile</a>
+                                <a href="{{ route('instructor.guided_practice') }}" class="block rounded-xl px-4 py-2 {{ request()->routeIs('instructor.guided_practice') ? 'bg-indigo-600 text-white' : 'hover:bg-slate-100 dark:hover:bg-slate-800' }}">Guided Practice Hub</a>
                                 <a href="{{ route('instructor.question_bank') }}" class="block rounded-xl px-4 py-2 {{ request()->routeIs('instructor.question_bank*') ? 'bg-indigo-600 text-white' : 'hover:bg-slate-100 dark:hover:bg-slate-800' }}">Question Bank</a>
                                 <a href="{{ route('instructor.mock_test') }}" class="block rounded-xl px-4 py-2 {{ request()->routeIs('instructor.mock_test*') ? 'bg-indigo-600 text-white' : 'hover:bg-slate-100 dark:hover:bg-slate-800' }}">Mock Test Builder</a>
                             @else
@@ -51,6 +53,7 @@
                         @else
                             <a href="{{ route('student.dashboard') }}" class="block rounded-xl px-4 py-2 {{ request()->routeIs('student.dashboard') ? 'bg-indigo-600 text-white' : 'hover:bg-slate-100 dark:hover:bg-slate-800' }}">Dashboard</a>
                             <a href="{{ route('student.profile') }}" class="block rounded-xl px-4 py-2 {{ request()->routeIs('student.profile') ? 'bg-indigo-600 text-white' : 'hover:bg-slate-100 dark:hover:bg-slate-800' }}">Profile</a>
+                            <a href="{{ route('student.guided_practice') }}" class="block rounded-xl px-4 py-2 {{ request()->routeIs('student.guided_practice') ? 'bg-indigo-600 text-white' : 'hover:bg-slate-100 dark:hover:bg-slate-800' }}">Guided Practice Hub</a>
                             <a href="{{ route('student.vocabulary') }}" class="block rounded-xl px-4 py-2 {{ request()->routeIs('student.vocabulary') ? 'bg-indigo-600 text-white' : 'hover:bg-slate-100 dark:hover:bg-slate-800' }}">Vocabulary Builder</a>
                             <a href="{{ route('student.history') }}" class="block rounded-xl px-4 py-2 {{ request()->routeIs('student.history') ? 'bg-indigo-600 text-white' : 'hover:bg-slate-100 dark:hover:bg-slate-800' }}">Test History</a>
                         @endif

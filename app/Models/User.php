@@ -62,4 +62,24 @@ class User extends Authenticatable
     {
         return $this->hasMany(MockTest::class, 'created_by');
     }
+
+    public function createdLearningResources()
+    {
+        return $this->hasMany(LearningResource::class, 'created_by');
+    }
+
+    public function createdClassRecordings()
+    {
+        return $this->hasMany(ClassRecording::class, 'created_by');
+    }
+
+    public function learningResourceStatuses()
+    {
+        return $this->hasMany(StudentLearningResourceStatus::class);
+    }
+
+    public function classRecordingStatuses()
+    {
+        return $this->hasMany(StudentClassRecordingStatus::class);
+    }
 }
