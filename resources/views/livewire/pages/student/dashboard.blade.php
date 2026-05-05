@@ -178,22 +178,61 @@
                 <div class="mb-4 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
                     <div>
                         <h4 class="font-bold text-slate-900 dark:text-white">Smart Practice Recommendations</h4>
-                        <p class="text-sm text-slate-600 dark:text-slate-300">Questions selected from your weaker sections and formats.</p>
+                        <p class="text-sm text-slate-600 dark:text-slate-300">
+                            @if(!empty($guidedPracticeModules))
+                                Guided Practice resources selected from your weak sections.
+                            @else
+                                Questions selected from your weaker sections and formats.
+                            @endif
+                        </p>
                     </div>
                     <a href="{{ route('student.smart_practice') }}" class="inline-flex w-fit items-center rounded-xl bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-500">Open Smart Practice</a>
                 </div>
                 <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
-                    @forelse($smartRecommendations ?? [] as $question)
-                        <article class="rounded-xl border border-white/70 bg-white/80 p-4 dark:border-slate-800 dark:bg-slate-900/80">
-                            <div class="mb-2 flex items-center justify-between gap-3">
-                                <span class="text-xs font-semibold uppercase text-indigo-700 dark:text-indigo-300">{{ ucfirst($question->group->item->module ?? 'practice') }}</span>
-                                <span class="rounded-md bg-slate-100 px-2 py-1 text-[10px] font-semibold text-slate-600 dark:bg-slate-800 dark:text-slate-300">{{ str_replace('_', ' ', $question->group->question_type ?? 'question') }}</span>
-                            </div>
-                            <p class="line-clamp-2 text-sm font-semibold text-slate-900 dark:text-white">{{ $question->prompt ?: ($question->group->item->title ?? 'Practice question') }}</p>
-                        </article>
-                    @empty
-                        <p class="rounded-xl border border-dashed border-indigo-200 bg-white/70 p-4 text-sm text-slate-500 dark:border-indigo-900 dark:bg-slate-900/60 dark:text-slate-400">Take a mock test to unlock targeted recommendations.</p>
-                    @endforelse
+                    @if(!empty($guidedPracticeModules))
+                        @forelse(($guidedPracticeResources ?? collect()) as $resource)
+                            <article class="rounded-xl border border-white/70 bg-white/80 p-4 dark:border-slate-800 dark:bg-slate-900/80">
+                                <div class="mb-2 flex items-center justify-between gap-3">
+                                    <span class="text-xs font-semibold uppercase text-indigo-700 dark:text-indigo-300">{{ ucfirst($resource->category) }}</span>
+                                    <span class="rounded-md bg-slate-100 px-2 py-1 text-[10px] font-semibold text-slate-600 dark:bg-slate-800 dark:text-slate-300">guided resource</span>
+                                </div>
+                                <p class="line-clamp-2 text-sm font-semibold text-slate-900 dark:text-white">{{ $resource->content }}</p>
+                            </article>
+                        @empty
+                            <p class="rounded-xl border border-dashed border-indigo-200 bg-white/70 p-4 text-sm text-slate-500 dark:border-indigo-900 dark:bg-slate-900/60 dark:text-slate-400">No Guided Practice resources have been added for your weak sections yet.</p>
+                        @endforelse
+
+                        @foreach(($guidedPracticeVideos ?? collect()) as $video)
+                            <article class="rounded-xl border border-white/70 bg-white/80 p-4 dark:border-slate-800 dark:bg-slate-900/80">
+                                <div class="mb-2 flex items-center justify-between gap-3">
+                                    <span class="text-xs font-semibold uppercase text-indigo-700 dark:text-indigo-300">{{ ucfirst($video->category) }}</span>
+                                    <span class="rounded-md bg-slate-100 px-2 py-1 text-[10px] font-semibold text-slate-600 dark:bg-slate-800 dark:text-slate-300">guided video</span>
+                                </div>
+                                <p class="line-clamp-2 text-sm font-semibold text-slate-900 dark:text-white">{{ $video->title }}</p>
+                            </article>
+                        @endforeach
+                    @else
+                        @forelse($smartRecommendations ?? [] as $question)
+                            <article class="rounded-xl border border-white/70 bg-white/80 p-4 dark:border-slate-800 dark:bg-slate-900/80">
+                                <div class="mb-2 flex items-center justify-between gap-3">
+                                    <span class="text-xs font-semibold uppercase text-indigo-700 dark:text-indigo-300">{{ ucfirst($question->group->item->module ?? 'practice') }}</span>
+                                    <span class="rounded-md bg-slate-100 px-2 py-1 text-[10px] font-semibold text-slate-600 dark:bg-slate-800 dark:text-slate-300">{{ str_replace('_', ' ', $question->group->question_type ?? 'question') }}</span>
+                                </div>
+                                @if($question->group?->item?->passage_html)
+                                    <div class="mb-2 line-clamp-3 text-xs leading-5 text-slate-600 dark:text-slate-300">
+                                        {{ strip_tags($question->group->item->passage_html) }}
+                                    </div>
+                                @elseif($question->group?->item?->prompt_html)
+                                    <div class="mb-2 line-clamp-3 text-xs leading-5 text-slate-600 dark:text-slate-300">
+                                        {{ strip_tags($question->group->item->prompt_html) }}
+                                    </div>
+                                @endif
+                                <p class="line-clamp-2 text-sm font-semibold text-slate-900 dark:text-white">{{ $question->prompt ?: ($question->group->item->title ?? 'Practice question') }}</p>
+                            </article>
+                        @empty
+                            <p class="rounded-xl border border-dashed border-indigo-200 bg-white/70 p-4 text-sm text-slate-500 dark:border-indigo-900 dark:bg-slate-900/60 dark:text-slate-400">Take a mock test to unlock targeted recommendations.</p>
+                        @endforelse
+                    @endif
                 </div>
             </div>
         </section>

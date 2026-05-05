@@ -4,6 +4,8 @@ namespace App\Livewire\Pages\Student;
 
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
+use App\Models\GuidedPracticeVideo;
+use App\Models\LearningResource;
 use App\Models\TestAttempt;
 use App\Models\MockTest;
 use App\Models\StudentClassRecordingStatus;
@@ -22,6 +24,9 @@ class Dashboard extends Component
     public $watchLaterRecordings;
     public array $performanceDashboard = [];
     public array $weaknessReport = [];
+    public array $guidedPracticeModules = [];
+    public $guidedPracticeResources;
+    public $guidedPracticeVideos;
     public $smartRecommendations;
 
     public function mount()
@@ -82,6 +87,24 @@ class Dashboard extends Component
     {
         $this->performanceDashboard = StudentSmartFeatures::performanceDashboard($this->user->id);
         $this->weaknessReport = StudentSmartFeatures::weaknessReport($this->user->id);
+        $this->guidedPracticeModules = collect($this->performanceDashboard['section_averages'] ?? [])
+            ->filter(fn ($score) => $score !== null && (float) $score > 0 && (float) $score <= 4.0)
+            ->sort()
+            ->keys()
+            ->values()
+            ->all();
+        $this->guidedPracticeResources = LearningResource::whereIn('category', $this->guidedPracticeModules)
+            ->with('creator:id,name')
+            ->orderByRaw("CASE category WHEN 'listening' THEN 1 WHEN 'reading' THEN 2 WHEN 'writing' THEN 3 WHEN 'speaking' THEN 4 ELSE 5 END")
+            ->orderBy('order_index')
+            ->orderBy('id')
+            ->take(4)
+            ->get();
+        $this->guidedPracticeVideos = GuidedPracticeVideo::whereIn('category', $this->guidedPracticeModules)
+            ->with('creator:id,name')
+            ->latest()
+            ->take(4)
+            ->get();
         $this->smartRecommendations = StudentSmartFeatures::recommendations($this->user->id, 4);
     }
 
