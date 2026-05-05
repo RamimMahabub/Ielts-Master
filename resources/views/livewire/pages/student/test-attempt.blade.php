@@ -14,10 +14,15 @@
         }
     }
     $totalQs = count($flatQuestions);
+    $answeredCount = 0;
+    foreach ($flatQuestions as $fq) {
+        $qid = $fq['q']->id;
+        if (!empty($answers[$qid] ?? null)) $answeredCount++;
+    }
 @endphp
 
 <div x-data="ieltsTimer(@js($endsAtTimestamp), {{ $attempt->id }}, $wire)" x-init="init()"
-     class="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 -mx-4 sm:-mx-6 lg:-mx-8 -mt-6 mb-0">
+    class="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 -mx-4 sm:-mx-6 lg:-mx-8 pt-14 mb-0">
 
     {{-- Top bar --}}
     <div class="sticky top-0 z-30 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-4 py-2 flex items-center justify-between">
@@ -31,7 +36,18 @@
             @if($currentModule === 'speaking')
                 {{-- Speaking has its own internal flow & no auto-cutoff timer --}}
                 <span class="text-xs text-slate-500">Recorded speaking exam</span>
-            @elseif($attempt->module_started_at)
+            @endif
+
+            {{-- Module progress indicator --}}
+            <div class="hidden sm:flex items-center gap-3 px-3">
+                <div class="text-xs text-slate-500">Progress</div>
+                <div class="w-40 bg-slate-100 dark:bg-slate-800 rounded-full h-2 overflow-hidden">
+                    <div class="bg-indigo-600 h-full" style="width: {{ $totalQs ? intval($answeredCount / $totalQs * 100) : 0 }}%"></div>
+                </div>
+                <div class="text-xs text-slate-500">{{ $answeredCount }} / {{ $totalQs }}</div>
+            </div>
+
+            @if($attempt->module_started_at)
                 <div class="font-mono text-lg" :class="timeLeft <= 60 ? 'text-rose-600 animate-pulse' : ''">
                     <span x-text="formatTime(timeLeft)"></span>
                 </div>
@@ -46,6 +62,9 @@
                     Start {{ ucfirst($currentModule) }} ({{ $module?->duration_minutes }} min)
                 </button>
             @endif
+            
+            {{-- Start over button --}}
+            <button wire:click="startOver" wire:confirm="Start this test over? All progress will be lost." class="rounded-lg border px-3 py-2 text-sm text-rose-600 hover:bg-rose-50">Start over</button>
             @if($lastSavedAt)
                 <span class="text-xs text-slate-400 hidden md:inline">Saved {{ $lastSavedAt }}</span>
             @endif
@@ -119,16 +138,38 @@
                             <p class="text-xs text-emerald-700 dark:text-emerald-300">No audio configured for this section.</p>
                         @endif
                     </div>
+
+                    @php
+                        $itemQuestions = array_filter($flatQuestions, function($q) use ($item) {
+                            return $q['item']->id === $item->bankItem->id;
+                        });
+                    @endphp
+                    @include('livewire.pages.student._test_questions', ['flatQuestions' => $itemQuestions])
                 @endforeach
-                @include('livewire.pages.student._test_questions', ['flatQuestions' => $flatQuestions])
             </div>
 
         @elseif($currentModule === 'reading')
             {{-- Reading: split layout — passage left, questions right --}}
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-0 h-[calc(100vh-3.5rem)]">
-                <div class="overflow-y-auto p-6 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+                <div class="overflow-y-auto p-6 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 relative"
+                     x-data="ieltsHighlighter()" x-on:mouseup="handleSelection" x-on:touchend="handleSelection" @scroll="hideMenu">
+                     
+                    {{-- The Floating Menu --}}
+                    <div x-ref="menu" x-show="showMenu" x-transition.opacity style="display: none;"
+                         class="fixed z-50 flex items-center gap-1 bg-slate-900 text-white rounded-lg shadow-xl px-2 py-1 text-sm border border-slate-700"
+                         :style="`top: ${menuY}px; left: ${menuX}px; transform: translate(-50%, -100%); margin-top: -8px;`">
+                         <div class="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-slate-900 border-b border-r border-slate-700 transform rotate-45"></div>
+                         
+                         <button type="button" @click.stop="applyHighlight" class="px-2 py-1 hover:bg-slate-800 rounded flex items-center gap-1">
+                             <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1.323l3.954 1.582 1.599-.8a1 1 0 01.894 1.79l-1.233.616 1.738 5.42a1 1 0 01-.285 1.05A3.989 3.989 0 0115 15a3.989 3.989 0 01-2.667-1.019 1 1 0 01-.285-1.05l1.715-5.349L11 6.477V16h2a1 1 0 110 2H7a1 1 0 110-2h2V6.477L6.237 7.582l1.715 5.349a1 1 0 01-.285 1.05A3.989 3.989 0 015 15a3.989 3.989 0 01-2.667-1.019 1 1 0 01-.285-1.05l1.738-5.42-1.233-.617a1 1 0 01.894-1.788l1.599.799L9 4.323V3a1 1 0 011-1z"/></svg>
+                             Highlight
+                         </button>
+                         <div class="w-px h-4 bg-slate-700 mx-1"></div>
+                         <button type="button" @click.stop="clearHighlight" class="px-2 py-1 hover:bg-slate-800 rounded text-slate-300 hover:text-white">Clear</button>
+                    </div>
+
                     @foreach($module->items as $item)
-                        <article class="prose dark:prose-invert max-w-none mb-8">
+                        <article class="prose dark:prose-invert max-w-none mb-8 highlighter-area">
                             <h2>{{ $item->bankItem->title }}</h2>
                             @if($item->bankItem->passage_subtitle)
                                 <p class="text-sm text-slate-500 italic">{{ $item->bankItem->passage_subtitle }}</p>
@@ -732,6 +773,90 @@
                     const m = Math.floor(s / 60).toString().padStart(2, '0');
                     const sec = (s % 60).toString().padStart(2, '0');
                     return `${m}:${sec}`;
+                }
+            }
+        }
+
+        function ieltsHighlighter() {
+            return {
+                showMenu: false,
+                menuX: 0,
+                menuY: 0,
+                init() {
+                    document.addEventListener('mousedown', (e) => {
+                        if (this.$refs.menu && !this.$refs.menu.contains(e.target)) {
+                            this.showMenu = false;
+                        }
+                    });
+                },
+                hideMenu() {
+                    this.showMenu = false;
+                },
+                handleSelection(e) {
+                    setTimeout(() => {
+                        const selection = window.getSelection();
+                        if (selection && selection.toString().trim().length > 0) {
+                            const range = selection.getRangeAt(0);
+                            const rect = range.getBoundingClientRect();
+                            // Position menu centered above the selection bounding box
+                            this.menuX = rect.left + (rect.width / 2);
+                            this.menuY = rect.top; 
+                            this.showMenu = true;
+                        } else {
+                            this.showMenu = false;
+                        }
+                    }, 50);
+                },
+                applyHighlight() {
+                    const selection = window.getSelection();
+                    if (!selection.rangeCount) return;
+                    
+                    const range = selection.getRangeAt(0);
+                    // Prevent highlighting outside the highlighter-area
+                    let ancestor = range.commonAncestorContainer;
+                    if (ancestor.nodeType === 3) ancestor = ancestor.parentNode;
+                    if (!ancestor.closest('.highlighter-area')) {
+                        this.showMenu = false;
+                        return;
+                    }
+
+                    try {
+                        const mark = document.createElement('mark');
+                        mark.className = 'bg-yellow-300 dark:bg-yellow-800 text-inherit rounded-sm';
+                        range.surroundContents(mark);
+                    } catch (err) {
+                        // If boundary points are in different nodes, surroundContents throws.
+                        const mark = document.createElement('mark');
+                        mark.className = 'bg-yellow-300 dark:bg-yellow-800 text-inherit rounded-sm';
+                        mark.appendChild(range.extractContents());
+                        range.insertNode(mark);
+                    }
+                    
+                    this.showMenu = false;
+                    selection.removeAllRanges();
+                },
+                clearHighlight() {
+                    const selection = window.getSelection();
+                    if (!selection.rangeCount) {
+                        this.showMenu = false;
+                        return;
+                    }
+                    const range = selection.getRangeAt(0);
+                    let node = range.commonAncestorContainer;
+                    if (node.nodeType === 3) node = node.parentNode;
+                    
+                    // If we clicked/selected inside a mark, unwrap it
+                    const markNode = node.closest('mark');
+                    if (markNode) {
+                        const parent = markNode.parentNode;
+                        while (markNode.firstChild) {
+                            parent.insertBefore(markNode.firstChild, markNode);
+                        }
+                        parent.removeChild(markNode);
+                        parent.normalize(); // merge text nodes
+                    }
+                    this.showMenu = false;
+                    selection.removeAllRanges();
                 }
             }
         }

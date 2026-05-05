@@ -63,6 +63,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/student/bookmarks', \App\Livewire\Pages\Student\BookmarkedQuestions::class)->name('student.bookmarks');
         Route::get('/test/{id}', \App\Livewire\Pages\Student\TestAttempt::class)->name('student.test.attempt');
         Route::get('/student/history', \App\Livewire\Pages\Student\TestHistory::class)->name('student.history');
+        Route::get('/student/mock-tests', \App\Livewire\Pages\Student\MockTests::class)->name('student.mock_tests');
         Route::get('/student/reports/{attempt}/band-score', [StudentReportController::class, 'show'])->name('student.reports.band_score');
     });
 

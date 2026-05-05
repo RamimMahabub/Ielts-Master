@@ -296,6 +296,29 @@ class TestAttempt extends Component
         $this->attempt->save();
     }
 
+    /**
+     * Start the test over: remove saved answers and recordings, then recreate a fresh attempt.
+     */
+    public function startOver(): void
+    {
+        // only allow the owning student to reset
+        if ($this->attempt->user_id !== Auth::id()) return;
+
+        // delete answers
+        TestAttemptAnswer::where('attempt_id', $this->attempt->id)->delete();
+
+        // delete speaking recording if present
+        if ($this->attempt->speaking_audio_path) {
+            Storage::disk('public')->delete($this->attempt->speaking_audio_path);
+        }
+
+        // delete the attempt record
+        $this->attempt->delete();
+
+        // redirect to the same route so mount() will create a fresh in-progress attempt
+        $this->redirect(route('student.test.attempt', $this->mockTest->id), navigate: false);
+    }
+
     public function render()
     {
         return view('livewire.pages.student.test-attempt', [
